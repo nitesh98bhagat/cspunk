@@ -14,15 +14,12 @@ function Header() {
 
   const menuLinks = [
     { href: `${user?.user_metadata.user_name}`, label: "My Profile" },
-    { href: "/create-post", label: "Create post" },
-    { href: "/support", label: "Support" },
-    { href: "/license", label: "License" },
     { href: "/settings", label: "Settings" },
     { href: "/signout", label: "Sign out" },
   ];
 
   return (
-    <nav className=" flex sticky top-0 bg-slate-900 z-50 flex-row items-center justify-start w-full  space-x-10 p-2 ">
+    <nav className=" flex sticky top-0 bg-slate-900 z-50 flex-row items-center justify-start w-full  space-x-10 p-2 border-b border-slate-800 ">
       <Link href={"/"} className="cursor-pointer">
         <h1 className="text-2xl font-black   cursor-pointer">
           <span className="bg-teal-600 text-white px-1 mr-1  rounded-sm ">
@@ -32,8 +29,7 @@ function Header() {
         </h1>
       </Link>
 
-      <div className="flex-1" />
-      <div className="flex-row flex space-x-2 items-center justify-center bg-slate-800 px-2 py-1 rounded-md w-1/2">
+      <div className="flex-row flex space-x-2 items-center justify-center bg-slate-800 px-2 py-1 rounded-md w-1/5 focus-within:w-1/2">
         <BsSearch size={15} />
         <input
           type="text"
@@ -69,7 +65,7 @@ function Header() {
               />
             </div>
           </Menu.Button>
-          <Menu.Items className="absolute flex-col w-36 flex right-0 top-14 shadow-2xl border border-slate-800  rounded-md overflow-hidden">
+          <Menu.Items className="absolute flex-col w-36 flex right-0 top-14 shadow-2xl border border-slate-700  rounded-md overflow-hidden">
             {menuLinks.map((link) => (
               /* Use the `active` state to conditionally style the active item. */
               <Menu.Item key={link.href} as={Fragment}>
@@ -77,8 +73,8 @@ function Header() {
                   <Link
                     href={link.href}
                     className={`py-1 px-3 ${
-                      active && "bg-slate-800 text-white"
-                    } ${!active && "bg-slate-900 "}`}
+                      active && "bg-slate-700 text-white"
+                    } ${!active && "bg-slate-800 "}`}
                   >
                     {link.label}
                   </Link>

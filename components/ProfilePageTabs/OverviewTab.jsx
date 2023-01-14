@@ -8,12 +8,13 @@ import {
 import { BsFillTrophyFill } from "react-icons/bs";
 import { SiFacebook } from "react-icons/si";
 
-function OverviewTab() {
+function OverviewTab({ profile }) {
   return (
     <div className="flex flex-col text-slate-300 ">
       <h1 className="text-xl font-medium my-3">About myself</h1>
       <p className="text-base sm:text-lg font-light  flex flex-col space-y-3">
-        <span>
+        {profile.about_myself ?? "About my is null"}
+        {/* <span>
           I`m a full-stack developer who has experience in various aspects of
           web development ranging from Frontend (React, Next) to Backend
           (Express js) alongside Databases such as MongoDB, Firebase-Firestore &
@@ -60,7 +61,7 @@ function OverviewTab() {
               <span>How Does Internet Works Explaind in Hindi </span>
             </div>
           </a>
-        </span>
+        </span> */}
       </p>
 
       <div className="grid grid-cols-3 my-5">
@@ -76,6 +77,11 @@ function OverviewTab() {
             </ul>
           </p>
         </div>
+        {/* {[{title: "UI/UX Design",},
+          {title: "Logo Design",},
+          {title: "Content Writing",},
+          {title: "Making Youtube Videos",},
+        ]} */}
 
         {/* soft skill */}
         <div className=" flex flex-col  items-start justify-center">

@@ -76,7 +76,7 @@ export default function ProfilePage({ profile }) {
 
     setTabBarView([
       <div key={"overview"} className="min-h-screen p-5">
-        <OverviewTab />
+        <OverviewTab profile={profile} />
       </div>,
       <div key={"project"} className="min-h-screen p-5">
         <ProjectsTab username={profile.username} />
@@ -137,7 +137,7 @@ export default function ProfilePage({ profile }) {
               </div>
             )}
             <h1 className="text-sm font-medium   text-slate-500 py-2">
-              {dateFormat(profile.updated_at, "dd-mmm-yyyy")}
+              Joined: {dateFormat(profile.updated_at, "dd-mmm-yyyy")}
             </h1>
             {/* email */}
             <div className="flex flex-row items-center text-slate-500 space-x-1">
@@ -201,6 +201,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
+
     fallback: false,
   };
 };
@@ -216,5 +217,6 @@ export const getStaticProps = async ({ params: { username } }) => {
     props: {
       profile,
     },
+    revalidate: 10,
   };
 };
