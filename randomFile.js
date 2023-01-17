@@ -1,10 +1,13 @@
-const data = {
-  iss: "https://api.github.com",
-  sub: "121447201",
-  email: "nikubh1998@gmail.com",
-  user_name: "nitesh-bhagat",
-  avatar_url: "https://avatars.githubusercontent.com/u/121447201?v=4",
-  provider_id: "121447201",
-  email_verified: true,
-  preferred_username: "nitesh-bhagat",
-};
+const data = [
+  "https://www.facebook.com/nitesh.bhagat.775",
+
+  "https://www.instagram.com/_nitesh_bhagat_/",
+
+  "https://www.linkedin.com/in/nitesh-bhagat-a8b996137/",
+
+  "https://www.twitter.com/myself_nitesh",
+
+  "https://github.com/nitesh98bhagat",
+
+  "https://www.youtube.com/@Nitesh_Bhagat",
+];

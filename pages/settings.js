@@ -4,10 +4,14 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { RxTextAlignLeft } from "react-icons/rx";
 import { AiOutlineUser } from "react-icons/ai";
+import { VscTools } from "react-icons/vsc";
 import { BiBell } from "react-icons/bi";
-import { BsShieldCheck } from "react-icons/bs";
+import { BsFillTrophyFill, BsLink45Deg, BsShieldCheck } from "react-icons/bs";
 import { supabase } from "../utils/supabaseConfig";
+import { FaTheaterMasks } from "react-icons/fa";
+import { HiLanguage } from "react-icons/hi2";
 
 export default function Settings() {
   const router = useRouter();
@@ -102,7 +106,7 @@ export default function Settings() {
         <title>Settings</title>
       </Head>
       <div className="flex-row flex min-h-screen">
-        <div className="flex-col flex pt-5">
+        <div className="flex-col flex pt-5 w-1/5">
           {[
             {
               title: "Profile ",
@@ -116,21 +120,60 @@ export default function Settings() {
               title: "Notifications",
               icon: <BiBell size={20} />,
             },
-          ].map((e, i) => (
-            <button
-              onClick={() => setIndexMenu(i)}
-              key={e.title}
-              className={`flex flex-row space-x-2 py-2 pl-3 rounded-md pr-10 ${
-                indexMenu === i && "text-white bg-gray-800 font-semibold"
-              } cursor-pointer justify-start items-center hover:bg-slate-800 text-slate-500 `}
-            >
-              {e.icon}
-              <span className="text-base    ">{e.title}</span>
-            </button>
-          ))}
+            {
+              title: "divider",
+            },
+            {
+              title: "Technologies ",
+              icon: <VscTools size={18} />,
+            },
+            {
+              title: "About myself ",
+              icon: <RxTextAlignLeft size={18} />,
+            },
+            {
+              title: "Hobbies & Interest ",
+              icon: <FaTheaterMasks size={18} />,
+            },
+            {
+              title: "Soft skill",
+              icon: <RxTextAlignLeft size={20} />,
+            },
+            {
+              title: "Languages",
+              icon: <HiLanguage size={20} />,
+            },
+            {
+              title: "Awards",
+              icon: <BsFillTrophyFill size={20} />,
+            },
+            {
+              title: "Social links",
+              icon: <BsLink45Deg size={20} />,
+            },
+          ].map((e, i) => {
+            if (e.title !== "divider") {
+              return (
+                <buttonbui
+                  onClick={() => setIndexMenu(i)}
+                  key={e.title}
+                  className={`flex flex-row space-x-2 py-2 pl-3 rounded-md pr-10 ${
+                    indexMenu === i && "text-white bg-gray-800 font-semibold"
+                  } cursor-pointer justify-start items-center hover:bg-slate-800 text-slate-500 `}
+                >
+                  {e.icon}
+                  <span className="text-base    ">{e.title}</span>
+                </buttonbui>
+              );
+            } else {
+              return (
+                <hr key={e.title} className="border-b border-slate-800 my-3" />
+              );
+            }
+          })}
         </div>
+        {/* main content */}
         <div className="flex-col flex px-10  w-1/2 border-l border-slate-700 ">
-          {/* main content */}
           <h1 className="text-2xl w-full  font-bold py-3">Profile settings</h1>
 
           <div className="w-36  relative h-36">

@@ -5,7 +5,7 @@ import Footer from "./Footer";
 export default function Layout({ children }) {
   const router = useRouter();
   const showHeader =
-    router.pathname === "/auth/signin"
+    router.pathname === "/auth"
       ? false
       : true && router.pathname === "/help-center"
       ? false

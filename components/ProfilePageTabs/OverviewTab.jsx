@@ -1,79 +1,74 @@
-import {
-  AiFillGithub,
-  AiFillInstagram,
-  AiFillLinkedin,
-  AiFillTwitterCircle,
-  AiFillYoutube,
-} from "react-icons/ai";
+import { useUser } from "@supabase/auth-helpers-react";
+import { useState } from "react";
 import { BsFillTrophyFill } from "react-icons/bs";
-import { SiFacebook } from "react-icons/si";
+import { supabase } from "../../utils/supabaseConfig";
 
 function OverviewTab({ profile }) {
+  const user = useUser();
+  const [aboutMyself, setAboutMyself] = useState(profile.about_myself);
+  const [editAboutMyself, setEditAboutMyself] = useState(false);
+
+  const saveAboutMyselfInDB = async () => {
+    if (editAboutMyself) {
+      if (aboutMyself !== profile.about_myself) {
+        const { error } = await supabase
+          .from("profiles")
+          .update({ about_myself: aboutMyself })
+          .eq("id", user.id);
+
+        if (error) {
+          console.log(error);
+        }
+      }
+      setEditAboutMyself(false);
+    } else {
+      setEditAboutMyself(true);
+    }
+  };
+
   return (
     <div className="flex flex-col text-slate-300 ">
-      <h1 className="text-xl font-medium my-3">About myself</h1>
-      <p className="text-base sm:text-lg font-light  flex flex-col space-y-3">
-        {profile.about_myself ?? "About my is null"}
-        {/* <span>
-          I`m a full-stack developer who has experience in various aspects of
-          web development ranging from Frontend (React, Next) to Backend
-          (Express js) alongside Databases such as MongoDB, Firebase-Firestore &
-          Postgress.
-        </span>
-        <span>
-          Apart from Web-Development I`ve also spent a reasonable amount of time
-          in Cross-Platform Mobile App Development with Google`s Flutter. To
-          know more about flutter
-          <a
-            href="https://flutter.dev/"
-            className=" text-sm  px-2 text-blue-500"
-          >
-            [Click here]
-          </a>
-        </span>
+      <div className="flex-row flex ">
+        <h1 className="text-xl font-medium my-3 mr-auto">About myself</h1>
+        {!!user && (
+          <button onClick={saveAboutMyselfInDB}>
+            {editAboutMyself ? "Save" : "Edit "}
+          </button>
+        )}
 
-        <span>
-          Coming up to my interest & hobbies, I like designing User Interfaces
-          of various systems like Web-apps, Mobile apps & Desktop apps with
-          Adobe XD & Figma.
-        </span>
-        <span>
-          I`ve also made couple of youtube videos explaining technologies in
-          English as well as in Hindi.
-          <br />
-          <a
-            href="https://www.youtube.com/watch?v=BKNaqmpU2Rk"
-            target="_blank"
-            rel="noreferrer"
+        {user && user.id === profile.id && editAboutMyself && (
+          <button
+            onClick={() => setEditAboutMyself(false)}
+            className=" py-1 px-5 text-slate-200 text-sm rounded-lg"
           >
-            <div className="flex flex-row text-md text-slate-400 items-center space-x-2 py-1 hover:underline ">
-              <AiFillYoutube size={30} />
-              <span>Library vs Framework Explained</span>
-            </div>
-          </a>
-          <a
-            href="https://www.youtube.com/watch?v=fxbomirnsFw"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <div className="flex flex-row text-md text-slate-400 items-center space-x-2 py-1 hover:underline ">
-              <AiFillYoutube size={30} x />
-              <span>How Does Internet Works Explaind in Hindi </span>
-            </div>
-          </a>
-        </span> */}
+            {"Cancel"}
+          </button>
+        )}
+      </div>
+      <p className="text-base sm:text-lg font-light  flex flex-col space-y-3">
+        {editAboutMyself ? (
+          <textarea
+            cols={30}
+            rows={5}
+            type="text"
+            className="bg-slate-800 border border-slate-700 px-2  focus:ring-teal-400 focus:ring-1 rounded-md outline-none "
+            // placeholder={bio ?? "Bio"}
+            value={aboutMyself || ""}
+            onChange={(e) => setAboutMyself(e.target.value)}
+          />
+        ) : (
+          <span>{aboutMyself ?? "About my is null"}</span>
+        )}
       </p>
 
-      <div className="grid grid-cols-3 my-5">
+      <div className="grid grid-cols-3 my-5 justify-start items-start">
         {/* hobby */}
         <div className=" flex flex-col  items-start justify-center">
           <h1 className="text-2xl font-medium py-2">Hobby & Interest</h1>
           <p className="text-base sm:text-lg font-light px-5 py-2">
             <ul className="list-disc space-y-2">
-              <li>UI/UX Design</li>
-              <li>Logo Design</li>
-              <li>Content Writing</li>
-              <li>Making Youtube Videos</li>
+              {profile.hobbies_interest &&
+                profile.hobbies_interest.map((e, i) => <li key={i}>{e}</li>)}
             </ul>
           </p>
         </div>
@@ -88,10 +83,8 @@ function OverviewTab({ profile }) {
           <h1 className="text-2xl font-medium py-2">Soft Skill</h1>
           <p className="text-base sm:text-lg font-light px-5 py-2">
             <ul className="list-disc space-y-2">
-              <li>Team work</li>
-              <li>Quick Learner</li>
-              <li>Active Listener</li>
-              <li>Problem Solver</li>
+              {profile.soft_skill &&
+                profile.soft_skill.map((e, i) => <li key={i}>{e}</li>)}
             </ul>
           </p>
         </div>
@@ -100,24 +93,15 @@ function OverviewTab({ profile }) {
           <h1 className="text-2xl font-medium py-2">Languages</h1>
           <p className="text-base sm:text-lg font-light px-5 py-2">
             <ul className="list-disc space-y-2">
-              <li>
-                <div className="flex flex-col">
-                  <span className="font-medium">Hindi</span>
-                  <span className="text-sm">Fluent </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex flex-col">
-                  <span className="font-medium">English</span>
-                  <span className="text-sm">Fluent </span>
-                </div>
-              </li>
-              <li>
-                <div className="flex flex-col">
-                  <span className="font-medium">Bengali</span>
-                  <span className="text-sm">Familiar </span>
-                </div>
-              </li>
+              {profile.languages &&
+                profile.languages.map((e, i) => (
+                  <li key={i}>
+                    <div className="flex flex-col">
+                      <span className="font-medium">{e.title}</span>
+                      <span className="text-sm">{e.level} </span>
+                    </div>
+                  </li>
+                ))}
             </ul>
           </p>
         </div>
@@ -130,8 +114,8 @@ function OverviewTab({ profile }) {
           <BsFillTrophyFill size={150} className="text-amber-600" />
           <div className="text-base sm:text-lg font-light px-10 py-2">
             <ul className="list-disc   space-y-2">
-              <li>Won a 1st prize in Business Model</li>
-              <li>Won a 2nd prize in Arduino Model Making</li>
+              {profile.awards &&
+                profile.awards.map((e, i) => <li key={i}>{e}</li>)}
             </ul>
           </div>
           <div className="flex-1"></div>

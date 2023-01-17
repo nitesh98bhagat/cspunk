@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Footer() {
   return (
     <div className="flex-col flex justify-center items-center text-slate-500 border-t border-slate-700">
@@ -11,8 +13,12 @@ function Footer() {
         ].map((e, i) => (
           <p key={i}>{e}</p>
         ))}
+
+        <Link href={"/privacy-policies"}>
+          <p>Privacy & Policies</p>
+        </Link>
       </div>
-      &copy; Nitesh Bhagat
+      <Link href={"/testing"}>&copy; Nitesh Bhagat</Link>
     </div>
   );
 }

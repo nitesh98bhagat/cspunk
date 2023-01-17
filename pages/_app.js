@@ -37,9 +37,10 @@ function MyApp({ Component, pageProps }) {
           />
         </Head>
         <LoadingBar
-          color="#ffffff"
+          color="#0D9488"
           waitingTime={400}
           loaderSpeed={600}
+          height={2}
           progress={progress}
           onLoaderFinished={() => setProgress(0)}
         />
