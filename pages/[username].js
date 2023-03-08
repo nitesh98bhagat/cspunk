@@ -56,12 +56,12 @@ export default function ProfilePage({ profile }) {
   }, []);
 
   return (
-    <div>
+    <div className="mx-auto w-4/5 ">
       <Head>
         <title>{profile.full_name}</title>
       </Head>
 
-      <div className="flex flex-row  w-full  justify-start items-start ">
+      <div className="flex flex-row  justify-start items-start ">
         {/* Profile Sidebar */}
         <div className="flex-col flex  p-3  sticky -top-48 w-1/4 ">
           {/* image */}

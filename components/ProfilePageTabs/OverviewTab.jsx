@@ -30,7 +30,7 @@ function OverviewTab({ profile }) {
     <div className="flex flex-col text-slate-300 ">
       <div className="flex-row flex ">
         <h1 className="text-xl font-medium my-3 mr-auto">About myself</h1>
-        {!!user && (
+        {user.id === profile.id && (
           <button onClick={saveAboutMyselfInDB}>
             {editAboutMyself ? "Save" : "Edit "}
           </button>
@@ -72,12 +72,7 @@ function OverviewTab({ profile }) {
             </ul>
           </p>
         </div>
-        {/* {[{title: "UI/UX Design",},
-          {title: "Logo Design",},
-          {title: "Content Writing",},
-          {title: "Making Youtube Videos",},
-        ]} */}
-
+    
         {/* soft skill */}
         <div className=" flex flex-col  items-start justify-center">
           <h1 className="text-2xl font-medium py-2">Soft Skill</h1>

@@ -24,7 +24,7 @@ function EducationTab({ profile }) {
     }
   };
 
-  console.log(educationList);
+  // console.log(educationList);
 
   return (
     <div>

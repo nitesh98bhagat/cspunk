@@ -18,6 +18,8 @@ import {
 } from "react-icons/hi2";
 import { useRouter } from "next/router";
 import { MdClear } from "react-icons/md";
+import { supabase } from "../utils/supabaseConfig";
+import { FiFeather } from "react-icons/fi";
 
 function Header() {
   const user = useUser();
@@ -49,13 +51,30 @@ function Header() {
   const [selectedPerson, setSelectedPerson] = useState("");
   const [query, setQuery] = useState("");
 
-  const handleOnChangeCombobox = (e) => {
+  const handleOnChangeCombobox = async (e) => {
     setSelectedPerson(e);
+
     // router.push(`/${e}`);
   };
 
+  const handleSearch = async (event) => {
+    setQuery(`"${event.target.value}"`);
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, full_name, username")
+      .textSearch("full_name", query, {
+        type: "websearch",
+        config: "english",
+      });
+
+    console.log("full:", data);
+    console.log("full:", error);
+    // console.log(query);
+  };
+
   return (
-    <nav className=" flex sticky top-0 bg-slate-900 z-50 flex-row items-center justify-start w-full  p-2 border-b border-slate-800 ">
+    <nav className=" flex sticky top-0 bg-slate-900 z-50 flex-row items-center justify-start w-full mx-auto  p-2 border-b border-slate-800 ">
       {/* Logo */}
       <Link href={"/"} className="cursor-pointer">
         <h1 className="text-2xl font-black   cursor-pointer">
@@ -77,7 +96,7 @@ function Header() {
               <BiSearch />
             </Combobox.Button>
             <Combobox.Input
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={handleSearch}
               className="focus-ring outline-none bg-transparent flex-1"
               placeholder="Search..."
               type="text"
@@ -121,14 +140,19 @@ function Header() {
       {/* Nav links*/}
       {router.pathname !== "/" && user && (
         <div className="flex flex-row justify-center items-center space-x-5 mx-10 text-slate-400">
-          <MenuItem icon={<HiHome size={22} />} title={"Home"} link={"/"} />
-          <MenuItem icon={<HiUsers size={22} />} title={"Peoples"} link={"/"} />
+          <MenuItem icon={<HiHome size={22} />} title={"Home"} link={"/feed"} />
+          <MenuItem
+            icon={<HiUsers size={22} />}
+            title={"Peoples"}
+            link={"/nitesh-bhagat"}
+          />
           <MenuItem icon={<HiBell size={22} />} title={"Activity"} link={"/"} />
           <MenuItem
             icon={<HiChatBubbleBottomCenter size={22} />}
             title={"Messages"}
             link={"/"}
           />
+
           {/* <MenuItem
             icon={<BsFillBriefcaseFill size={22} />}
             title={"Jobs"}
