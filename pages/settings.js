@@ -106,7 +106,7 @@ export default function Settings() {
         <title>Settings</title>
       </Head>
       <div className="flex-row flex min-h-screen">
-        <div className="flex-col flex pt-5 w-1/5">
+        <div className="flex-col flex p-5 w-1/5">
           {[
             {
               title: "Profile ",

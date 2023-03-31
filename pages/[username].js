@@ -2,15 +2,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
 
 // icons
-import {
-  AiFillInstagram,
-  AiFillLinkedin,
-  AiOutlineMail,
-  AiFillTwitterCircle,
-  AiFillGithub,
-  AiFillYoutube,
-} from "react-icons/ai";
-import { SiFacebook } from "react-icons/si";
+import { AiOutlineMail } from "react-icons/ai";
 import { BiLink, BiUser } from "react-icons/bi";
 
 import { MdLocationOn, MdVerified } from "react-icons/md";
@@ -47,23 +39,22 @@ export default function ProfilePage({ profile }) {
       </div>,
       <div key={"project"} className="min-h-screen p-5">
         <ProjectsTab username={profile.username} />
-        {/* <h1>Basnati</h1> */}
       </div>,
       <div key={"education"} className="min-h-screen p-5">
         <EducationTab profile={profile} />
       </div>,
     ]);
-  }, []);
+  }, [profile]);
 
   return (
-    <div className="mx-auto w-4/5 ">
+    <div className=" ">
       <Head>
         <title>{profile.full_name}</title>
       </Head>
 
       <div className="flex flex-row  justify-start items-start ">
         {/* Profile Sidebar */}
-        <div className="flex-col flex  p-3  sticky -top-48 w-1/4 ">
+        <div className="flex-col flex  py-3 px-5  sticky -top-48 w-1/4 ">
           {/* image */}
           <div className=" w-56 h-56 relative rounded-full my-2 border-4 border-teal-400">
             <Image
@@ -75,18 +66,18 @@ export default function ProfilePage({ profile }) {
           </div>
           {/* details */}
           <div className="flex flex-col w-full ">
-            <div className="text-lg text-stone-50 sm:text-xl font-bold flex flex-row items-center space-x-1">
+            <div className="text-lg  sm:text-xl font-bold flex flex-row items-center space-x-1">
               <span>{profile.full_name ?? "default"}</span>
             </div>
             {/* Username */}
-            <div className="flex flex-row items-center text-slate-400 space-x-1">
+            <div className="flex flex-row items-center  space-x-1">
               <BiUser size={20} />
               <h1 className="text-sm">{profile.username ?? "default"}</h1>
 
               <MdVerified className="text-teal-400" />
             </div>
             {/* bio */}
-            <h1 className="text-sm font-medium   text-slate-400 py-2">
+            <h1 className="text-sm  text-slate-800 dark:text-slate-300   py-2">
               {profile.bio ?? "default"}
             </h1>
 
@@ -94,23 +85,23 @@ export default function ProfilePage({ profile }) {
             {user && user.id === profile.id && (
               <Link
                 href={"/settings"}
-                className="bg-teal-400 text-slate-800 rounded-md py-1 font-medium my-2 text-center"
+                className="bg-teal-400  rounded-md py-1 font-medium my-2 text-center"
               >
                 Edit profile
               </Link>
             )}
             {/* location */}
             {profile.location !== null && (
-              <div className="flex flex-row items-center text-slate-400 space-x-1">
+              <div className="flex flex-row items-center  space-x-1">
                 <MdLocationOn size={20} />
                 <h1 className="text-base">{profile.location}</h1>
               </div>
             )}
-            <h1 className="text-sm font-medium   text-slate-400 py-2">
+            <h1 className="text-sm font-medium    py-2">
               Joined: {dateFormat(profile.updated_at, "dd-mmm-yyyy")}
             </h1>
             {/* email */}
-            <div className="flex flex-row items-center text-slate-400 space-x-1">
+            <div className="flex flex-row items-center  space-x-1">
               <AiOutlineMail size={20} />
               <span className="text-sm">{profile.email}</span>
             </div>
@@ -121,7 +112,7 @@ export default function ProfilePage({ profile }) {
             {profile.social_links &&
               profile.social_links.map((e) => (
                 <a key={e} href={e} target="_blank" rel="noreferrer">
-                  <div className="flex flex-row  text-sm text-slate-400 items-start my-1 justify-start space-x-2 hover:underline ">
+                  <div className="flex flex-row  text-sm  items-start my-1 justify-start space-x-2 hover:underline ">
                     <BiLink size={20} />
                     <span>
                       {e.replace("https://www.", "").replace("https://", "")}
@@ -132,9 +123,9 @@ export default function ProfilePage({ profile }) {
           </div>
         </div>
         {/* Main Area */}
-        <div className="flex flex-col flex-1 relative border-l-2 border-slate-800 ">
+        <div className="flex flex-col flex-1 relative border-l dark:border-slate-800 ">
           {/* Tab Bar  */}
-          <div className="flex flex-row justify-start z-20 sticky top-[50px] bg-slate-900 items-end w-full overflow-hidden hover:overflow-x-auto    ">
+          <div className="flex flex-row justify-start z-20 sticky top-0 bg-white dark:bg-slate-900 items-end w-full overflow-hidden hover:overflow-x-auto    ">
             {tabList.map((e, i) => (
               <div
                 key={i}
@@ -143,8 +134,8 @@ export default function ProfilePage({ profile }) {
                 text-base font-medium  flex items-center  border-b-2  py-3 px-4 space-x-1  cursor-pointer
                 ${
                   currentIndex === i
-                    ? "text-teal-400   border-teal-400 font-medium"
-                    : "text-slate-400 border-slate-800"
+                    ? "text-teal-400  border-teal-400 font-medium"
+                    : " border-slate-50 dark:border-slate-800 text-slate-500"
                 }
                `}
               >
@@ -152,7 +143,7 @@ export default function ProfilePage({ profile }) {
                 <span>{e.title}</span>
               </div>
             ))}
-            <div className="flex-1 border-b-2 border-slate-800"></div>
+            <div className="flex-1 border-b-2 border-slate-50 dark:border-slate-800"></div>
           </div>
           {/* tabar view */}
           <div className="flex flex-col w-full ">

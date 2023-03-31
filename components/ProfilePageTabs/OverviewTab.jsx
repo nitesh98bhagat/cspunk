@@ -4,61 +4,12 @@ import { BsFillTrophyFill } from "react-icons/bs";
 import { supabase } from "../../utils/supabaseConfig";
 
 function OverviewTab({ profile }) {
-  const user = useUser();
-  const [aboutMyself, setAboutMyself] = useState(profile.about_myself);
-  const [editAboutMyself, setEditAboutMyself] = useState(false);
-
-  const saveAboutMyselfInDB = async () => {
-    if (editAboutMyself) {
-      if (aboutMyself !== profile.about_myself) {
-        const { error } = await supabase
-          .from("profiles")
-          .update({ about_myself: aboutMyself })
-          .eq("id", user.id);
-
-        if (error) {
-          console.log(error);
-        }
-      }
-      setEditAboutMyself(false);
-    } else {
-      setEditAboutMyself(true);
-    }
-  };
-
   return (
-    <div className="flex flex-col text-slate-300 ">
-      <div className="flex-row flex ">
-        <h1 className="text-xl font-medium my-3 mr-auto">About myself</h1>
-        {user.id === profile.id && (
-          <button onClick={saveAboutMyselfInDB}>
-            {editAboutMyself ? "Save" : "Edit "}
-          </button>
-        )}
+    <div className="flex flex-col text-slate-900 dark:text-slate-300  ">
+      <h1 className="text-xl font-medium my-3 mr-auto">About myself</h1>
 
-        {user && user.id === profile.id && editAboutMyself && (
-          <button
-            onClick={() => setEditAboutMyself(false)}
-            className=" py-1 px-5 text-slate-200 text-sm rounded-lg"
-          >
-            {"Cancel"}
-          </button>
-        )}
-      </div>
       <p className="text-base sm:text-lg font-light  flex flex-col space-y-3">
-        {editAboutMyself ? (
-          <textarea
-            cols={30}
-            rows={5}
-            type="text"
-            className="bg-slate-800 border border-slate-700 px-2  focus:ring-teal-400 focus:ring-1 rounded-md outline-none "
-            // placeholder={bio ?? "Bio"}
-            value={aboutMyself || ""}
-            onChange={(e) => setAboutMyself(e.target.value)}
-          />
-        ) : (
-          <span>{aboutMyself ?? "About my is null"}</span>
-        )}
+        <span>{profile.about_myself ?? "About my is null"}</span>
       </p>
 
       <div className="grid grid-cols-3 my-5 justify-start items-start">
@@ -72,7 +23,7 @@ function OverviewTab({ profile }) {
             </ul>
           </p>
         </div>
-    
+
         {/* soft skill */}
         <div className=" flex flex-col  items-start justify-center">
           <h1 className="text-2xl font-medium py-2">Soft Skill</h1>
@@ -103,7 +54,7 @@ function OverviewTab({ profile }) {
       </div>
 
       {/* Awards */}
-      <div className="flex flex-col text-white rounded-lg px-5 pb-5 bg-slate-800">
+      <div className="flex flex-col  rounded-lg px-5 pb-5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-100">
         <h1 className="text-2xl font-medium p-5 ">Awards</h1>
         <div className="flex-row flex w-full  overflow-hidden">
           <BsFillTrophyFill size={150} className="text-amber-600" />

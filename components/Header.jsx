@@ -2,11 +2,16 @@ import { useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 
 import { FaSignOutAlt } from "react-icons/fa";
-import { BsFillBriefcaseFill, BsSearch } from "react-icons/bs";
+import {
+  BsFillBriefcaseFill,
+  BsFillMoonFill,
+  BsFillSunFill,
+  BsSearch,
+} from "react-icons/bs";
 import { GoHome } from "react-icons/go";
 import Image from "next/image";
 import { Combobox, Menu } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { BiBell, BiSearch } from "react-icons/bi";
 import {
@@ -19,27 +24,33 @@ import {
 import { useRouter } from "next/router";
 import { MdClear } from "react-icons/md";
 import { supabase } from "../utils/supabaseConfig";
-import { FiFeather } from "react-icons/fi";
+import { FiFeather, FiSettings } from "react-icons/fi";
+import { useTheme } from "next-themes";
+import HomeFeed from "./SideBarSection/HomeFeed";
+import ActivityFeed from "./SideBarSection/ActivityFeed";
+import SearchFeed from "./SideBarSection/SearchFeed";
 
 function Header() {
   const user = useUser();
 
+  const { systemTheme, theme, setTheme } = useTheme();
+
   const router = useRouter();
 
   const people = [
-    { id: 1, name: "Durward Reynolds" },
-    { id: 2, name: "Kenton Towne" },
-    { id: 3, name: "Therese Wunsch" },
-    { id: 4, name: "Benedict Kessler" },
-    { id: 5, name: "Katelyn Rohan" },
-    { id: 6, name: "Tanmay Bhatt" },
-    { id: 7, name: "Abhimanuyu Uday" },
-    { id: 8, name: "Akash Gupta" },
-    { id: 9, name: "Nikhil Sharma" },
-    { id: 10, name: "Gaurav Chaudhary" },
-    { id: 11, name: "Carryminati" },
-    { id: 12, name: "Gaurav Taneja" },
-    { id: 13, name: "Nikhil Gupta" },
+    { id: 1, name: "Nitesh Kumar Bhagat", username: "nitesh-bhagat" },
+    { id: 2, name: "Kenton Towne", username: "nitesh-bhagat" },
+    { id: 3, name: "Therese Wunsch", username: "nitesh-bhagat" },
+    { id: 4, name: "Benedict Kessler", username: "nitesh-bhagat" },
+    { id: 5, name: "Katelyn Rohan", username: "nitesh-bhagat" },
+    { id: 6, name: "Tanmay Bhatt", username: "nitesh-bhagat" },
+    { id: 7, name: "Abhimanuyu Uday", username: "nitesh-bhagat" },
+    { id: 8, name: "Akash Gupta", username: "nitesh-bhagat" },
+    { id: 9, name: "Nikhil Sharma", username: "nitesh-bhagat" },
+    { id: 10, name: "Gaurav Chaudhary", username: "nitesh-bhagat" },
+    { id: 11, name: "Carryminati", username: "nitesh-bhagat" },
+    { id: 12, name: "Gaurav Taneja", username: "nitesh-bhagat" },
+    { id: 13, name: "Nikhil Gupta", username: "nitesh-bhagat" },
   ];
 
   const menuLinks = [
@@ -52,29 +63,65 @@ function Header() {
   const [query, setQuery] = useState("");
 
   const handleOnChangeCombobox = async (e) => {
-    setSelectedPerson(e);
+    setSelectedPerson(e.name);
 
-    // router.push(`/${e}`);
+    // console.log(e.username);
+    router.push(`/${e.username}`);
   };
 
   const handleSearch = async (event) => {
-    setQuery(`"${event.target.value}"`);
+    setQuery(`${event.target.value}`);
 
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("id, full_name, username")
-      .textSearch("full_name", query, {
-        type: "websearch",
-        config: "english",
-      });
+    // const { data, error } = await supabase
+    //   .from("profiles")
+    //   .select("id, full_name, username")
+    //   .textSearch("full_name", query, {
+    //     type: "websearch",
+    //     config: "english",
+    //   });
 
-    console.log("full:", data);
-    console.log("full:", error);
+    // console.log("full:", data);
+    // console.log("full:", error);
     // console.log(query);
   };
 
+  // This is to determine whether components are mounted or not, so that it can show change theme button
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // THIS code will render a change theme button
+  const renderThemeChanger = () => {
+    if (!isMounted) return null;
+    const currentTheme = theme === "system" ? systemTheme : theme;
+
+    if (currentTheme === "dark") {
+      return (
+        <button
+          className="flex flex-row items-center justify-start px-2 py-1  space-x-2  cursor-pointer bg-slate-100 dark:bg-slate-800 hover:bg-slate-300"
+          onClick={() => setTheme("light")}
+        >
+          <BsFillSunFill size={18} />
+          <span className="hidden sm:block ">Light Mode</span>
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="flex flex-row items-center justify-start space-x-2 px-2 py-1  cursor-pointer bg-slate-100 dark:bg-slate-800"
+          onClick={() => setTheme("dark")}
+        >
+          <BsFillMoonFill size={18} />
+          <span className="hidden sm:block ">Dark Mode</span>
+        </button>
+      );
+    }
+  };
+
   return (
-    <nav className=" flex sticky top-0 bg-slate-900 z-50 flex-row items-center justify-start w-full mx-auto  p-2 border-b border-slate-800 ">
+    <nav className=" flex sticky top-0  z-50 flex-row items-center justify-start w-full px-20 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-100 p-2 border-b dark:border-slate-800  border-slate-100">
       {/* Logo */}
       <Link href={"/"} className="cursor-pointer">
         <h1 className="text-2xl font-black   cursor-pointer">
@@ -87,11 +134,8 @@ function Header() {
 
       {/* search bar */}
       {router.pathname !== "/" && (
-        <div className="flex-row flex  items-center justify-center bg-slate-800 px-2 py-1 rounded-md  w-1/5  mr-auto  ml-5  focus-within:flex-grow  focus-within:ring-teal-800 focus-within:ring-1 relative">
-          <Combobox
-            value={selectedPerson}
-            onChange={(e) => handleOnChangeCombobox(e)}
-          >
+        <div className="flex-row flex  items-center justify-center bg-slate-200 focus-within:bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded-md  w-1/5  mr-auto  ml-5  focus-within:flex-grow  focus-within:ring-teal-300 dark:focus-within:ring-teal-600 focus-within:ring-1 relative">
+          <Combobox value={selectedPerson} onChange={handleOnChangeCombobox}>
             <Combobox.Button className="pr-2">
               <BiSearch />
             </Combobox.Button>
@@ -122,10 +166,12 @@ function Header() {
                     .map((item) => (
                       <Combobox.Option
                         key={item.id}
-                        value={item.name}
+                        value={item}
                         className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 text-slate-400 shadow-lg ${
-                            active ? "bg-slate-700 " : "bg-slate-800 "
+                          `relative cursor-default select-none py-2 pl-10 pr-4 text-slate-900 dark:text-slate-200 shadow-lg ${
+                            active
+                              ? "bg-slate-200 dark:bg-slate-700"
+                              : "bg-slate-100 dark:bg-slate-800"
                           }`
                         }
                       >
@@ -139,25 +185,31 @@ function Header() {
 
       {/* Nav links*/}
       {router.pathname !== "/" && user && (
-        <div className="flex flex-row justify-center items-center space-x-5 mx-10 text-slate-400">
+        <div className="flex flex-row justify-center items-center space-x-5 mx-10 ">
           <MenuItem icon={<HiHome size={22} />} title={"Home"} link={"/feed"} />
           <MenuItem
             icon={<HiUsers size={22} />}
             title={"Peoples"}
-            link={"/nitesh-bhagat"}
+            link={"/peoples"}
           />
           <MenuItem icon={<HiBell size={22} />} title={"Activity"} link={"/"} />
-          <MenuItem
+          {/* <MenuItem
             icon={<HiChatBubbleBottomCenter size={22} />}
             title={"Messages"}
             link={"/"}
-          />
+          /> */}
 
           {/* <MenuItem
             icon={<BsFillBriefcaseFill size={22} />}
             title={"Jobs"}
             link={"/"}
           /> */}
+          <Link href={"/create-post"}>
+            <button className="  bg-teal-700 text-white font-bold flex py-1 px-2 items-center justify-center space-x-2 rounded-md">
+              <FiFeather />
+              <span>Post Now</span>
+            </button>
+          </Link>
         </div>
       )}
 
@@ -165,7 +217,7 @@ function Header() {
       {router.pathname !== "/" && user && (
         <Menu>
           <Menu.Button>
-            <div className="flex flex-row space-x-2 items-center justify-center text-slate-300">
+            <div className="flex flex-row space-x-2 items-center justify-center text-slate-800 dark:text-slate-300">
               <div className="flex-col flex space-y- items-start">
                 <p className="text-xs">Signed in as</p>
                 <p className="text-sm font-semibold">
@@ -181,7 +233,7 @@ function Header() {
               />
             </div>
           </Menu.Button>
-          <Menu.Items className="absolute flex-col w-36 flex right-0 top-14 shadow-2xl border border-slate-700  rounded-md overflow-hidden">
+          <Menu.Items className="absolute flex-col w-36 flex right-20 top-14 shadow-2xl border border-slate-300 dark:border-slate-700  rounded-md overflow-hidden">
             {menuLinks.map((link) => (
               /* Use the `active` state to conditionally style the active item. */
               <Menu.Item key={link.href} as={Fragment}>
@@ -189,17 +241,19 @@ function Header() {
                   <Link
                     href={link.href}
                     className={`py-1 px-3 ${
-                      active && "bg-slate-700 text-white"
-                    } ${!active && "bg-slate-800 "}`}
+                      active && "bg-slate-200 dark:bg-slate-700"
+                    } ${!active && "bg-slate-100 dark:bg-slate-800 "}`}
                   >
                     {link.label}
                   </Link>
                 )}
               </Menu.Item>
             ))}
+            <Menu.Item>{renderThemeChanger()}</Menu.Item>
           </Menu.Items>
         </Menu>
       )}
+
       {/* Sign in button */}
       {!user && (
         <Link
@@ -220,10 +274,85 @@ export function MenuItem({ title, link, icon }) {
   return (
     <Link href={link}>
       {" "}
-      <div className="flex-col flex justify-center items-center">
+      <div className="flex-col flex justify-center items-center my-1.5">
         {icon}
-        <span className="text-[10px]">{title}</span>
+        <span className="text-[10px]">{title ?? ""}</span>
       </div>
     </Link>
+  );
+}
+
+export function VerticleBar() {
+  const user = useUser();
+  const [menuIndex, setMenuIndex] = useState(0);
+  const router = useRouter();
+  const showHeader = router.pathname === "/feed" ? true : false;
+
+  function showSection() {
+    switch (menuIndex) {
+      case 0:
+        return <HomeFeed />;
+      case 1:
+        return <ActivityFeed />;
+      case 2:
+        return <SearchFeed />;
+
+      default:
+        return <h1>Hmm, Something went wrong</h1>;
+    }
+  }
+
+  return (
+    <div className="relative">
+      <div className="flex-row flex   sticky top-0 bg-slate-800/50 min-h-screen">
+        <div className="flex-col flex p-3 text-slate-300">
+          <MenuItem
+            icon={<HiHome size={25} />}
+            onClick={() => setMenuIndex(0)}
+            link={"/feed"}
+          />
+
+          <MenuItem
+            icon={<BiSearch size={25} />}
+            onClick={() => setMenuIndex(2)}
+            link={"/feed"}
+          />
+
+          <MenuItem
+            icon={<HiBell size={25} />}
+            onClick={() => setMenuIndex(1)}
+            link={"/feed"}
+          />
+
+          {/* <MenuItem
+          icon={<HiUsers size={22} />}
+          title={"Peoples"}
+          link={"/peoples"}
+        /> */}
+          {/* <MenuItem icon={<HiBell size={22} />} title={"Activity"} link={"/"} /> */}
+          {/* <MenuItem
+            icon={<HiChatBubbleBottomCenter size={22} />}
+            title={"Messages"}
+            link={"/"}
+          /> */}
+
+          <div className="my-auto"></div>
+
+          <Link href={`/${user?.user_metadata.user_name}`}>
+            <Image
+              src={user?.user_metadata.avatar_url}
+              width={30}
+              height={30}
+              alt="user_dp"
+              className="rounded-full my-3"
+            />
+          </Link>
+          <MenuItem icon={<FiSettings size={22} />} link={"/settings"} />
+        </div>
+        {showHeader && (
+          <div className="w-60 bg-slate-900 ">{showSection()}</div>
+        )}
+      </div>
+    </div>
   );
 }

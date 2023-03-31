@@ -12,11 +12,11 @@ export default function Home() {
       <Head>
         <title>CsPunk | Home of the Devs</title>
       </Head>
-      <div className="flex flex-row  w-full  py-16 ">
+      <div className="flex flex-row  w-full  px-20 py-10 ">
         <div className="w-1/2">
-          <h1 className="text-6xl font-bold text-slate-300  p-2">
+          <h1 className="text-6xl font-bold text-slate-700 dark:text-slate-300  p-2">
             Be With The Smartest
-            <span className="text-emerald-500 font-black">{" NERD "}</span>
+            <span className="text-emerald-700 font-black">{" NERD "}</span>
             around the world
           </h1>
           <p className="text-slate-400 my-4">
@@ -26,7 +26,7 @@ export default function Home() {
           {user && (
             <Link
               href={`/${user.user_metadata.user_name}`}
-              className="bg-slate-800 hover:bg-slate-700 w-fit  px-5 py-3 rounded-xl flex flex-row items-center justify-center space-x-3"
+              className="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-800/70  w-fit  px-5 py-3 rounded-xl flex flex-row items-center justify-center space-x-3"
             >
               <span>Go to your Profile</span>
               <Image

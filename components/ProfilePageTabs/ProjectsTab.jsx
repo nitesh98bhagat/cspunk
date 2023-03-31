@@ -19,16 +19,16 @@ function ProjectsTab({ username }) {
       <h3 className="font-[300] text-slate-400">
         All public repositories are shown here, click to view project
       </h3>
-      <div className="border border-slate-700 my-5 rounded-lg overflow-hidden">
+      <div className="border border-slate-200 dark:border-slate-800  my-5 rounded-lg overflow-hidden">
         {!!repos === null && <h1>Loading Repositories...</h1>}
         {!!repos &&
           repos.map((e) => (
             <div
               key={e.id}
-              className="border-b flex-row flex border-slate-700  p-2 text-slate-400  cursor-pointer hover:bg-slate-800"
+              className="border-b flex-row flex border-slate-200 dark:border-slate-800  p-2 text-slate-600 dark:text-slate-400  cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800"
             >
               <div className="flex-col flex flex-1">
-                <h1 className="text-lg hover:underline text-slate-100">
+                <h1 className="text-lg hover:underline text-slate-900 dark:text-slate-100">
                   <a href={e.html_url} target="_blank" rel="noreferrer">
                     {e.name ?? "REPOS"}
                   </a>

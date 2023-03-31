@@ -1,6 +1,11 @@
-import Header from "./Header";
+import Header, { VerticleBar } from "./Header";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
+import { BiBell } from "react-icons/bi";
+import HomeFeed from "./SideBarSection/HomeFeed";
+import { useState } from "react";
+import ActivityFeed from "./SideBarSection/ActivityFeed";
+import SearchFeed from "./SideBarSection/SearchFeed";
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -11,21 +16,18 @@ export default function Layout({ children }) {
       ? false
       : true && router.pathname === "/signin"
       ? false
+      : true && router.pathname === "/create-post"
+      ? false
       : true;
 
+
+
   return (
-    <div
-      className="flex flex-col items-center bg-slate-900 text-slate-100 "
-      //   style={{
-      //     backgroundImage: `url(https://media.istockphoto.com/id/1224388366/vector/colorful-geometric-background.jpg?s=612x612&w=0&k=20&c=0MH3nZPyJnqL41pnXHnejHlUqFBPmVVKt8dCl9tbaOs=)`,
-      //     // minHeight: "100vh",
-      //   }}
-    >
-      <div className="flex-col  relative">
-        {showHeader && <Header />}
-        <div className="min-h-screen ">{children}</div>
-        {showHeader && <Footer />}
-      </div>
+    <div className="flex flex-col  bg-white dark:bg-slate-900 ">
+      {showHeader && <Header />}
+      
+
+      <div className="min-h-screen w-full px-20 ">{children}</div>
     </div>
   );
 }
