@@ -16,28 +16,28 @@ function OverviewTab({ profile }) {
         {/* hobby */}
         <div className=" flex flex-col  items-start justify-center">
           <h1 className="text-2xl font-medium py-2">Hobby & Interest</h1>
-          <p className="text-base sm:text-lg font-light px-5 py-2">
+          <div className="text-base sm:text-lg font-light px-5 py-2">
             <ul className="list-disc space-y-2">
               {profile.hobbies_interest &&
                 profile.hobbies_interest.map((e, i) => <li key={i}>{e}</li>)}
             </ul>
-          </p>
+          </div>
         </div>
 
         {/* soft skill */}
         <div className=" flex flex-col  items-start justify-center">
           <h1 className="text-2xl font-medium py-2">Soft Skill</h1>
-          <p className="text-base sm:text-lg font-light px-5 py-2">
+          <div className="text-base sm:text-lg font-light px-5 py-2">
             <ul className="list-disc space-y-2">
               {profile.soft_skill &&
                 profile.soft_skill.map((e, i) => <li key={i}>{e}</li>)}
             </ul>
-          </p>
+          </div>
         </div>
         {/* Language */}
         <div className="flex flex-col  items-start justify-center">
           <h1 className="text-2xl font-medium py-2">Languages</h1>
-          <p className="text-base sm:text-lg font-light px-5 py-2">
+          <div className="text-base sm:text-lg font-light px-5 py-2">
             <ul className="list-disc space-y-2">
               {profile.languages &&
                 profile.languages.map((e, i) => (
@@ -49,7 +49,7 @@ function OverviewTab({ profile }) {
                   </li>
                 ))}
             </ul>
-          </p>
+          </div>
         </div>
       </div>
 
