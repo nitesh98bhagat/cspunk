@@ -8,6 +8,7 @@ import TimeAgo from "javascript-time-ago";
 
 // English.
 import en from "javascript-time-ago/locale/en";
+import Link from "next/link";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -25,6 +26,7 @@ export default function PostCard({ content, created_at, profiles }) {
       {/* content area */}
       <div className="flex flex-col  flex-1 justify-start items-start space-y-1">
         {/* profile header */}
+
         <div className=" flex flex-row   items-center w-full space-x-2">
           <div className=" w-8 h-8 relative z-10 rounded-full">
             <img
@@ -38,14 +40,21 @@ export default function PostCard({ content, created_at, profiles }) {
               className="rounded-full "
             />
           </div>
-          <div className="flex-col flex flex-1 ">
+
+          <div className="flex-col flex flex-1 -space-y-1 ">
             <span className="text-sm font-medium">
               {profiles.full_name ?? "Full Name"}
             </span>
-            <div className="flex items-center space-x-1">
-              <span className="text-sm font-light text-slate-400">
-                {"@" + profiles.username ?? "Username"}
-              </span>
+
+            <div className="flex items-center ">
+              <Link
+                href={`/${profiles.username}`}
+                className=" hover:underline hover:text-slate-600"
+              >
+                <span className="text-sm font-light text-slate-400">
+                  {"@" + profiles.username ?? "Username"}
+                </span>
+              </Link>
               <span>・</span>
               <p className="text-xs font-light ">
                 {/* {dateFormat(created_at, "dd-mmm-yyyy") ?? "2 day ago"} */}

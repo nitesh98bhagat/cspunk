@@ -1,4 +1,4 @@
-import Header, { VerticleBar } from "./Header";
+import Header, { MobileNavBar, VerticleBar } from "./Header";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import { BiBell } from "react-icons/bi";
@@ -6,6 +6,8 @@ import HomeFeed from "./SideBarSection/HomeFeed";
 import { useState } from "react";
 import ActivityFeed from "./SideBarSection/ActivityFeed";
 import SearchFeed from "./SideBarSection/SearchFeed";
+import { FiFeather } from "react-icons/fi";
+import Link from "next/link";
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -20,14 +22,26 @@ export default function Layout({ children }) {
       ? false
       : true;
 
-
-
   return (
     <div className="flex flex-col  bg-white dark:bg-slate-900 ">
       {showHeader && <Header />}
-      
 
-      <div className="min-h-screen w-full px-20 ">{children}</div>
+      {showHeader && <MobileNavBar />}
+
+      {/* <button className="bg-teal-400  top-1/2 sticky ">Post</button> */}
+
+      <div className="min-h-screen w-full sm:px-20 ">{children}</div>
+
+      {showHeader && (
+        <div className="flex justify-end sticky bottom-10   z-50">
+          <Link href={"/create-post"} className="">
+            <button className="  bg-teal-700 text-white font-bold flex py-2 px-5 sm:px-20 sm:py-3 items-center justify-center space-x-2 rounded-full mr-5 sm:mr-52">
+              <FiFeather />
+              <span>Post Now</span>
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

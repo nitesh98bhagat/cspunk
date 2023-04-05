@@ -47,14 +47,14 @@ export default function ProfilePage({ profile }) {
         <title>{profile.full_name}</title>
       </Head>
 
-      <div className="flex flex-row  justify-start items-start ">
+      <div className="flex flex-col sm:flex-row  justify-start items-start ">
         {/* Profile Sidebar */}
         <ProfileSideBar profile={profile} />
 
         {/* Main Area */}
         <div className="flex flex-col flex-1 relative border-l dark:border-slate-800 ">
           {/* Tab Bar  */}
-          <div className="flex flex-row justify-start z-20 sticky top-[66px] bg-white dark:bg-slate-900 items-end w-full overflow-hidden hover:overflow-x-auto    ">
+          <div className="flex flex-row justify-start z-20 sticky top-14 bg-white dark:bg-slate-900 items-end w-full overflow-hidden hover:overflow-x-auto    ">
             {tabList.map((e, i) => (
               <div
                 key={i}

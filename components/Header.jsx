@@ -12,7 +12,7 @@ import { GoHome } from "react-icons/go";
 import Image from "next/image";
 import { Combobox, Menu } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub, AiOutlineUser } from "react-icons/ai";
 import { BiBell, BiSearch } from "react-icons/bi";
 import {
   HiBell,
@@ -29,6 +29,7 @@ import { useTheme } from "next-themes";
 import HomeFeed from "./SideBarSection/HomeFeed";
 import ActivityFeed from "./SideBarSection/ActivityFeed";
 import SearchFeed from "./SideBarSection/SearchFeed";
+import { IoMdClose } from "react-icons/io";
 
 function Header() {
   const user = useUser();
@@ -121,9 +122,9 @@ function Header() {
   };
 
   return (
-    <nav className=" flex sticky top-0  z-50 flex-row items-center justify-start w-full px-20 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-100 p-2 border-b dark:border-slate-800  border-slate-100">
+    <nav className=" sm:flex sticky top-0 hidden  z-50 flex-row items-center justify-start w-full sm:px-20 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-100 p-2 border-b dark:border-slate-800  border-slate-100">
       {/* Logo */}
-      <Link href={"/"} className="cursor-pointer">
+      <Link href={"/"} className="cursor-pointer flex-1 sm:flex-none">
         <h1 className="text-2xl font-black   cursor-pointer">
           <span className="bg-teal-600 text-white px-1 mr-1  rounded-sm ">
             Cs
@@ -134,7 +135,7 @@ function Header() {
 
       {/* search bar */}
       {router.pathname !== "/" && (
-        <div className="flex-row flex  items-center justify-center bg-slate-200 focus-within:bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded-md  w-1/5  mr-auto  ml-5  focus-within:flex-grow  focus-within:ring-teal-300 dark:focus-within:ring-teal-600 focus-within:ring-1 relative">
+        <div className="flex-row sm:flex hidden  items-center justify-center bg-slate-200 focus-within:bg-slate-50 dark:bg-slate-800 px-2 py-1 rounded-md  w-1/5  mr-auto  ml-5  focus-within:flex-grow  focus-within:ring-teal-300 dark:focus-within:ring-teal-600 focus-within:ring-1 relative">
           <Combobox value={selectedPerson} onChange={handleOnChangeCombobox}>
             <Combobox.Button className="pr-2">
               <BiSearch />
@@ -185,26 +186,23 @@ function Header() {
 
       {/* Nav links*/}
       {router.pathname !== "/" && user && (
-        <div className="flex flex-row justify-center items-center space-x-5 mx-10 ">
+        <div className="flex flex-row justify-center items-center space-x-5 sm:mx-10 ">
           <MenuItem icon={<HiHome size={20} />} title={"Home"} link={"/feed"} />
+          <MenuItem
+            icon={<BiSearch size={20} />}
+            onClick={() => setMenuIndex(2)}
+            link={"/feed"}
+            title={"Search"}
+          />
+
           <MenuItem
             icon={<HiUsers size={20} />}
             title={"Peoples"}
             link={"/peoples"}
           />
           <MenuItem icon={<HiBell size={20} />} title={"Activity"} link={"/"} />
-          {/* <MenuItem
-            icon={<HiChatBubbleBottomCenter size={20} />}
-            title={"Messages"}
-            link={"/"}
-          /> */}
 
-          {/* <MenuItem
-            icon={<BsFillBriefcaseFill size={20} />}
-            title={"Jobs"}
-            link={"/"}
-          /> */}
-          <Link href={"/create-post"}>
+          <Link href={"/create-post"} className="hidden sm:bloack">
             <button className="  bg-teal-700 text-white font-bold flex py-1 px-2 items-center justify-center space-x-2 rounded-md">
               <FiFeather />
               <span>Post Now</span>
@@ -218,7 +216,7 @@ function Header() {
         <Menu>
           <Menu.Button>
             <div className="flex flex-row space-x-2 items-center justify-center text-slate-800 dark:text-slate-300">
-              <div className="flex-col flex  items-start">
+              <div className="flex-col   items-start hidden sm:flex">
                 <p className="text-xs">Signed in as</p>
                 <p className="text-sm font-semibold">
                   {user?.user_metadata.full_name}
@@ -282,77 +280,37 @@ export function MenuItem({ title, link, icon }) {
   );
 }
 
-export function VerticleBar() {
-  const user = useUser();
-  const [menuIndex, setMenuIndex] = useState(0);
-  const router = useRouter();
-  const showHeader = router.pathname === "/feed" ? true : false;
-
-  function showSection() {
-    switch (menuIndex) {
-      case 0:
-        return <HomeFeed />;
-      case 1:
-        return <ActivityFeed />;
-      case 2:
-        return <SearchFeed />;
-
-      default:
-        return <h1>Hmm, Something went wrong</h1>;
-    }
-  }
+function MobileNavBar() {
+  const [openSearch, setOpenSearch] = useState(false);
 
   return (
-    <div className="relative">
-      <div className="flex-row flex   sticky top-0 bg-slate-800/50 min-h-screen">
-        <div className="flex-col flex p-3 text-slate-300">
-          <MenuItem
-            icon={<HiHome size={25} />}
-            onClick={() => setMenuIndex(0)}
-            link={"/feed"}
-          />
-
-          <MenuItem
-            icon={<BiSearch size={25} />}
-            onClick={() => setMenuIndex(2)}
-            link={"/feed"}
-          />
-
-          <MenuItem
-            icon={<HiBell size={25} />}
-            onClick={() => setMenuIndex(1)}
-            link={"/feed"}
-          />
-
-          {/* <MenuItem
-          icon={<HiUsers size={20} />}
-          title={"Peoples"}
-          link={"/peoples"}
-        /> */}
-          {/* <MenuItem icon={<HiBell size={20} />} title={"Activity"} link={"/"} /> */}
-          {/* <MenuItem
-            icon={<HiChatBubbleBottomCenter size={20} />}
-            title={"Messages"}
-            link={"/"}
-          /> */}
-
-          <div className="my-auto"></div>
-
-          <Link href={`/${user?.user_metadata.user_name}`}>
-            <Image
-              src={user?.user_metadata.avatar_url}
-              width={30}
-              height={30}
-              alt="user_dp"
-              className="rounded-full my-3"
-            />
-          </Link>
-          <MenuItem icon={<FiSettings size={20} />} link={"/settings"} />
-        </div>
-        {showHeader && (
-          <div className="w-60 bg-slate-900 ">{showSection()}</div>
-        )}
+    <div className="flex-col flex sticky top-0 z-50 bg-white">
+      <div className="flex sm:hidden flex-row p-3   items-center justify-center   ">
+        {/* <span>{`@${user?.user_metadata.user_name}`}</span> */}
+        <button onClick={() => setOpenSearch(!openSearch)}>
+          {openSearch ? <IoMdClose size={28} /> : <BiSearch size={28} />}
+        </button>
+        <h1 className="text-xl flex-grow text-center font-black   cursor-pointer">
+          <span className="bg-teal-600 text-white px-1 mr-1  rounded-sm ">
+            Cs
+          </span>
+          Punk
+        </h1>
+        <AiOutlineUser size={28} />
       </div>
+      {openSearch && (
+        <div className="bg-slate-100 flex m-1 p-1.5 rounded-full text-slate-600 ">
+          <BiSearch size={28} />
+          <input
+            type="text"
+            placeholder="Search.."
+            className="focus:ring-0 outline-none bg-transparent flex-grow text-lg px-1"
+          />
+        </div>
+      )}
+      <hr />
     </div>
   );
 }
+
+export { MobileNavBar };

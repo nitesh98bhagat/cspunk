@@ -34,8 +34,8 @@ function CreatePost() {
         <title>Create Post</title>
       </Head>
 
-      <div className="max-w-2xl mx-auto">
-        <div className="flex py-4 justify-between items-center border-b">
+      <div className="max-w-2xl mx-auto ">
+        <div className="flex py-2 px-3 justify-between items-center border-b">
           <h1 className="text-xl font-bold flex-1">Create Post</h1>
           <button
             className="bg-teal-500 px-3 py-1 mx-5 text-white rounded-lg"
@@ -50,7 +50,7 @@ function CreatePost() {
         <textarea
           onChange={(e) => setPostContent(e.target.value)}
           placeholder="Write a post..."
-          className="w-full bg-transparent py-5 focus:ring-0 outline-none text-xl"
+          className="w-full bg-transparent py-5 focus:ring-0 outline-none text-xl p-3"
           rows="15"
         ></textarea>
       </div>
