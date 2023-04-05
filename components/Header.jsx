@@ -186,21 +186,21 @@ function Header() {
       {/* Nav links*/}
       {router.pathname !== "/" && user && (
         <div className="flex flex-row justify-center items-center space-x-5 mx-10 ">
-          <MenuItem icon={<HiHome size={22} />} title={"Home"} link={"/feed"} />
+          <MenuItem icon={<HiHome size={20} />} title={"Home"} link={"/feed"} />
           <MenuItem
-            icon={<HiUsers size={22} />}
+            icon={<HiUsers size={20} />}
             title={"Peoples"}
             link={"/peoples"}
           />
-          <MenuItem icon={<HiBell size={22} />} title={"Activity"} link={"/"} />
+          <MenuItem icon={<HiBell size={20} />} title={"Activity"} link={"/"} />
           {/* <MenuItem
-            icon={<HiChatBubbleBottomCenter size={22} />}
+            icon={<HiChatBubbleBottomCenter size={20} />}
             title={"Messages"}
             link={"/"}
           /> */}
 
           {/* <MenuItem
-            icon={<BsFillBriefcaseFill size={22} />}
+            icon={<BsFillBriefcaseFill size={20} />}
             title={"Jobs"}
             link={"/"}
           /> */}
@@ -218,7 +218,7 @@ function Header() {
         <Menu>
           <Menu.Button>
             <div className="flex flex-row space-x-2 items-center justify-center text-slate-800 dark:text-slate-300">
-              <div className="flex-col flex space-y- items-start">
+              <div className="flex-col flex  items-start">
                 <p className="text-xs">Signed in as</p>
                 <p className="text-sm font-semibold">
                   {user?.user_metadata.full_name}
@@ -274,7 +274,7 @@ export function MenuItem({ title, link, icon }) {
   return (
     <Link href={link}>
       {" "}
-      <div className="flex-col flex justify-center items-center my-1.5">
+      <div className="flex-col flex justify-center items-center ">
         {icon}
         <span className="text-[10px]">{title ?? ""}</span>
       </div>
@@ -325,13 +325,13 @@ export function VerticleBar() {
           />
 
           {/* <MenuItem
-          icon={<HiUsers size={22} />}
+          icon={<HiUsers size={20} />}
           title={"Peoples"}
           link={"/peoples"}
         /> */}
-          {/* <MenuItem icon={<HiBell size={22} />} title={"Activity"} link={"/"} /> */}
+          {/* <MenuItem icon={<HiBell size={20} />} title={"Activity"} link={"/"} /> */}
           {/* <MenuItem
-            icon={<HiChatBubbleBottomCenter size={22} />}
+            icon={<HiChatBubbleBottomCenter size={20} />}
             title={"Messages"}
             link={"/"}
           /> */}
@@ -347,7 +347,7 @@ export function VerticleBar() {
               className="rounded-full my-3"
             />
           </Link>
-          <MenuItem icon={<FiSettings size={22} />} link={"/settings"} />
+          <MenuItem icon={<FiSettings size={20} />} link={"/settings"} />
         </div>
         {showHeader && (
           <div className="w-60 bg-slate-900 ">{showSection()}</div>

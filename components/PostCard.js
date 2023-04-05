@@ -14,23 +14,22 @@ TimeAgo.addDefaultLocale(en);
 // Create formatter (English).
 const timeAgo = new TimeAgo("en-US");
 
-export default function PostCard({ content, created_at, post_id, user_id }) {
+export default function PostCard({ content, created_at, profiles }) {
   // const { postImage, content, userName, time } = props;
   const [upbit, setUpbit] = useState("none");
 
   const date = new Date(created_at);
 
-  console.log(date);
-
   return (
-    <div className="flex flex-row pb-3 mb-3 border-b dark:border-slate-800 border-slate-200  space-x-2 p-3">
+    <div className="flex flex-row pb-3  border-b dark:border-slate-800 border-slate-200  space-x-2 p-3">
       {/* content area */}
       <div className="flex flex-col  flex-1 justify-start items-start space-y-1">
         {/* profile header */}
         <div className=" flex flex-row   items-center w-full space-x-2">
-          <div className=" w-8 h-8 relative z-10 rounded-full border  border-teal-500">
+          <div className=" w-8 h-8 relative z-10 rounded-full">
             <img
               src={
+                profiles.avatar_url ??
                 "https://firebasestorage.googleapis.com/v0/b/fleeke-ebe0e.appspot.com/o/webAssets%2FWhatsApp%20Image%202020-02-17%20at%2011.44.18%20AM.jpeg?alt=media&token=ed3e9338-bbdd-4b6e-94db-8822931e6b83"
               }
               alt="nitesh bhagat"
@@ -40,11 +39,19 @@ export default function PostCard({ content, created_at, post_id, user_id }) {
             />
           </div>
           <div className="flex-col flex flex-1 ">
-            <span className="text-sm font-medium">{"Nitesh Bhagat"}</span>
-            <p className="text-xs font-light ">
-              {/* {dateFormat(created_at, "dd-mmm-yyyy") ?? "2 day ago"} */}
-              {timeAgo.format(date, "twitter")}
-            </p>
+            <span className="text-sm font-medium">
+              {profiles.full_name ?? "Full Name"}
+            </span>
+            <div className="flex items-center space-x-1">
+              <span className="text-sm font-light text-slate-400">
+                {"@" + profiles.username ?? "Username"}
+              </span>
+              <span>・</span>
+              <p className="text-xs font-light ">
+                {/* {dateFormat(created_at, "dd-mmm-yyyy") ?? "2 day ago"} */}
+                {timeAgo.format(date, "twitter")}
+              </p>
+            </div>
           </div>
 
           {/* repost button */}
@@ -114,3 +121,14 @@ export default function PostCard({ content, created_at, post_id, user_id }) {
     </div>
   );
 }
+
+// {
+//   "post_id": "174a6f3f-3ca3-4d03-aea4-a491e3513cf4",
+//   "created_at": "2023-04-04T11:57:40.001812+00:00",
+//   "content": "working on fetching relational data from different tables on post  ",
+//   "user_id": "e343dcdd-fd8c-48eb-b176-6e513b4af679",
+//   "profiles": {
+//       "id": "e343dcdd-fd8c-48eb-b176-6e513b4af679",
+//       "username": "nitesh98bhagat"
+//   }
+// }

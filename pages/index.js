@@ -4,15 +4,25 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import { AiFillGithub } from "react-icons/ai";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const user = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/feed");
+    }
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Head>
         <title>CsPunk | Home of the Devs</title>
       </Head>
-      <div className="flex flex-row  w-full  px-20 py-10 ">
+      <div className="flex flex-row  w-full   py-10 ">
         <div className="w-1/2">
           <h1 className="text-6xl font-bold text-slate-700 dark:text-slate-300  p-2">
             Be With The Smartest
@@ -50,18 +60,18 @@ export default function Home() {
           )}
         </div>
         {/* terminal window */}
-        <div className="flex-col flex flex-1 bg-gray-800 shadow-xl font-bold rounded-md mx-10 overflow-hidden border border-slate-700 ">
+        <div className="flex-col flex flex-1 bg-gray-200 dark:bg-gray-800 shadow-xl font-bold rounded-md mx-10 overflow-hidden border border-slate-300 dark:border-slate-700 ">
           {/* <Image src="/full_logo.png" width={200} height={50} /> */}
-          <div className="flex-row flex bg-zinc-800 p-1 justify-end">
+          <div className="flex-row flex bg-zinc-300 dark:bg-zinc-800 p-1 justify-end">
             <GoPrimitiveDot className="text-red-500" />
             <GoPrimitiveDot className="text-yellow-500" />
             <GoPrimitiveDot className="text-green-500" />
           </div>
-          <h1 className="text-slate-300  text-4xl p-2">
+          <h1 className="text-slate-700 dark:text-slate-200  text-4xl p-2">
             Welcome
             <span className="text-emerald-500 font-black">{"  //: DEVs"}</span>
           </h1>
-          <h1 className="text-base text-lime-500 font-light tracking-widep px-2">
+          <h1 className="text-base font-semibold text-lime-500  tracking-widep px-2">
             {
               "$>> Get Started with creating your own profile || By searching an existing Developer"
             }
