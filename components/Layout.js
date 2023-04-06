@@ -20,6 +20,8 @@ export default function Layout({ children }) {
       ? false
       : true && router.pathname === "/create-post"
       ? false
+      : true && router.pathname === "/"
+      ? false
       : true;
 
   return (

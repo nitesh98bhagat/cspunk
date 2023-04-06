@@ -10,7 +10,7 @@ function ProfileSideBar({ profile }) {
   const user = useUser();
 
   return (
-    <div className="flex-col flex  py-3 px-5  sticky -top-48 w-1/4 ">
+    <div className="flex-col hidden sm:flex  py-3 px-5  sticky -top-48 w-1/4 ">
       {/* image */}
       <div className=" w-56 h-56 relative rounded-full my-2 border-4 border-teal-400">
         <Image

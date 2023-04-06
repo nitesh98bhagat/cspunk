@@ -188,12 +188,6 @@ function Header() {
       {router.pathname !== "/" && user && (
         <div className="flex flex-row justify-center items-center space-x-5 sm:mx-10 ">
           <MenuItem icon={<HiHome size={20} />} title={"Home"} link={"/feed"} />
-          <MenuItem
-            icon={<BiSearch size={20} />}
-            onClick={() => setMenuIndex(2)}
-            link={"/feed"}
-            title={"Search"}
-          />
 
           <MenuItem
             icon={<HiUsers size={20} />}
@@ -284,8 +278,8 @@ function MobileNavBar() {
   const [openSearch, setOpenSearch] = useState(false);
 
   return (
-    <div className="flex-col flex sticky top-0 z-50 bg-white">
-      <div className="flex sm:hidden flex-row p-3   items-center justify-center   ">
+    <div className="flex-col sm:hidden  flex sticky top-0 z-50 bg-white">
+      <div className="flex flex-row p-3   items-center justify-center   ">
         {/* <span>{`@${user?.user_metadata.user_name}`}</span> */}
         <button onClick={() => setOpenSearch(!openSearch)}>
           {openSearch ? <IoMdClose size={28} /> : <BiSearch size={28} />}

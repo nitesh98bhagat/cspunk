@@ -12,7 +12,7 @@ function OverviewTab({ profile }) {
         <span>{profile.about_myself ?? "About my is null"}</span>
       </p>
 
-      <div className="grid grid-cols-3 my-5 justify-start items-start">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 my-5 justify-start items-start">
         {/* hobby */}
         <div className=" flex flex-col  items-start justify-center">
           <h1 className="text-2xl font-medium py-2">Hobby & Interest</h1>
