@@ -26,9 +26,7 @@ import { MdClear } from "react-icons/md";
 import { supabase } from "../utils/supabaseConfig";
 import { FiFeather, FiSettings } from "react-icons/fi";
 import { useTheme } from "next-themes";
-import HomeFeed from "./SideBarSection/HomeFeed";
-import ActivityFeed from "./SideBarSection/ActivityFeed";
-import SearchFeed from "./SideBarSection/SearchFeed";
+
 import { IoMdClose } from "react-icons/io";
 
 function Header() {

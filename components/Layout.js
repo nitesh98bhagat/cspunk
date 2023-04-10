@@ -1,11 +1,6 @@
 import Header, { MobileNavBar, VerticleBar } from "./Header";
 import { useRouter } from "next/router";
-import Footer from "./Footer";
-import { BiBell } from "react-icons/bi";
-import HomeFeed from "./SideBarSection/HomeFeed";
-import { useState } from "react";
-import ActivityFeed from "./SideBarSection/ActivityFeed";
-import SearchFeed from "./SideBarSection/SearchFeed";
+
 import { FiFeather } from "react-icons/fi";
 import Link from "next/link";
 

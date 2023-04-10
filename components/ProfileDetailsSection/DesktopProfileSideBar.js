@@ -6,7 +6,7 @@ import { BiLink, BiUser } from "react-icons/bi";
 import dateFormat from "dateformat";
 import { MdLocationOn, MdVerified } from "react-icons/md";
 
-function ProfileSideBar({ profile, followerCount }) {
+function DesktopProfileSideBar({ profile, followerCount }) {
   const user = useUser();
 
   return (
@@ -84,4 +84,4 @@ function ProfileSideBar({ profile, followerCount }) {
   );
 }
 
-export default ProfileSideBar;
+export default DesktopProfileSideBar;

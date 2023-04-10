@@ -11,13 +11,9 @@ import EducationTab from "../components/ProfilePageTabs/EducationTab";
 import dateFormat from "dateformat";
 import { supabase } from "../utils/supabaseConfig";
 import Head from "next/head";
-import Link from "next/link";
-import ProfileSideBar from "../components/ProfileSideBar";
-import Image from "next/image";
-import { BiUser } from "react-icons/bi";
-import { MdLocationOn, MdVerified } from "react-icons/md";
-import { FiEdit, FiFeather } from "react-icons/fi";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import DesktopProfileSideBar from "../components/ProfileDetailsSection/MobileProfileBar";
+
+import MobileProfileBar from "../components/ProfileDetailsSection/MobileProfileBar";
 
 export async function getServerSideProps(context) {
   const { data: profile } = await supabase
@@ -29,9 +25,7 @@ export async function getServerSideProps(context) {
   const { data, count } = await supabase
     .from("followers")
     .select("follower_id", { count: "exact", head: true })
-    .eq("following_id", profile.id);
-
-  console.log(count);
+    .eq("following_id", profile?.id);
 
   return {
     props: {
@@ -77,7 +71,7 @@ export default function ProfilePage({ profile, count }) {
 
       <div className="flex flex-col sm:flex-row  justify-start items-start ">
         {/*Desktop Profile Sidebar */}
-        <ProfileSideBar profile={profile} followerCount={count} />
+        <DesktopProfileSideBar profile={profile} followerCount={count} />
 
         {/* Mobile profile Bar */}
         <MobileProfileBar profile={profile} followerCount={count} />
@@ -85,7 +79,7 @@ export default function ProfilePage({ profile, count }) {
         {/* Main Area */}
         <div className="flex flex-col flex-1 relative border-l dark:border-slate-800 ">
           {/* Tab Bar  */}
-          <div className="flex flex-row justify-start z-20 sticky top-12 sm:top-14 bg-white dark:bg-slate-900 items-end w-full overflow-hidden hover:overflow-x-auto    ">
+          <div className="flex flex-row justify-start z-20 sticky top-12 sm:top-14 bg-white dark:bg-slate-900 items-end w-full   ">
             {tabList.map((e, i) => (
               <div
                 key={i}
@@ -114,49 +108,3 @@ export default function ProfilePage({ profile, count }) {
     </>
   );
 }
-
-export const MobileProfileBar = ({ profile, followerCount }) => {
-  const user = useUser();
-  return (
-    <div className="flex sm:hidden flex-col p-1 ">
-      {/* Image, Name, details */}
-      <div className="flex-row flex items-center space-x-1">
-        {/* image */}
-        <div className=" w-28 h-28 relative rounded-full my-2 border-4 ">
-          <Image
-            src={profile?.avatar_url}
-            alt="nitesh_bhagat" // required
-            fill="fill"
-            className="rounded-full object-cover "
-          />
-        </div>
-        <div className="flex-col flex space-y-0.5 flex-1">
-          <h1 className="text-lg font-semibold">{profile?.full_name}</h1>
-          {/* Username */}
-          <div className="flex flex-row items-center  space-x-1">
-            <BiUser size={20} />
-            <h1 className="text-sm">{profile?.username ?? "default"}</h1>
-
-            <MdVerified className="text-teal-400" />
-          </div>
-          {/* location */}
-          {profile?.location !== null && (
-            <div className="flex flex-row items-center  space-x-1 ">
-              <MdLocationOn size={20} />
-              <h1 className="text-sm">{profile?.location}</h1>
-            </div>
-          )}
-
-          {profile.id === user?.id && (
-            <button className="  bg-teal-700 text-white font-bold flex p-1  items-center justify-center space-x-2 rounded-full w-full">
-              <FiEdit />
-              <span>Edit </span>
-            </button>
-          )}
-        </div>
-      </div>
-      <p className="text-base px-2">{profile?.bio}</p>
-      <p className="font-bold p-1">{followerCount} Followers </p>
-    </div>
-  );
-};
