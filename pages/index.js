@@ -70,7 +70,7 @@ export default function Home() {
           )}
         </div>
         {/* terminal window */}
-        <div className="flex-col flex flex-1 bg-gray-200 dark:bg-gray-800 shadow-xl font-bold rounded-md mx-10 overflow-hidden border border-slate-300 dark:border-slate-700 pb-28">
+        <div className="flex-col flex flex-1 bg-gray-200 dark:bg-gray-800 shadow-xl font-bold rounded-md mx-5 sm:mx-10 overflow-hidden border border-slate-300 dark:border-slate-700 pb-28">
           {/* <Image src="/full_logo.png" width={200} height={50} /> */}
           <div className="flex-row flex bg-zinc-300 dark:bg-zinc-800 p-1 justify-end">
             <GoPrimitiveDot className="text-red-500" />

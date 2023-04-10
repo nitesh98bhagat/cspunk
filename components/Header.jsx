@@ -278,18 +278,22 @@ function MobileNavBar() {
   const [openSearch, setOpenSearch] = useState(false);
 
   return (
-    <div className="flex-col sm:hidden  flex sticky top-0 z-50 bg-white">
+    <div className="flex-col sm:hidden  flex sticky top-0 z-50 bg-white dark:bg-slate-900">
       <div className="flex flex-row p-3   items-center justify-center   ">
         {/* <span>{`@${user?.user_metadata.user_name}`}</span> */}
         <button onClick={() => setOpenSearch(!openSearch)}>
           {openSearch ? <IoMdClose size={28} /> : <BiSearch size={28} />}
         </button>
-        <h1 className="text-xl flex-grow text-center font-black   cursor-pointer">
-          <span className="bg-teal-600 text-white px-1 mr-1  rounded-sm ">
-            Cs
-          </span>
-          Punk
-        </h1>
+
+        <Link href={"/"} className="mx-auto hover:bg-transparent">
+          <h1 className="text-xl  text-center font-black  ">
+            <span className="bg-teal-600 text-white px-1 mr-1  rounded-sm ">
+              Cs
+            </span>
+            Punk
+          </h1>
+        </Link>
+
         <AiOutlineUser size={28} />
       </div>
       {openSearch && (
@@ -302,7 +306,7 @@ function MobileNavBar() {
           />
         </div>
       )}
-      <hr />
+      <hr className="border-slate-100 dark:border-slate-800" />
     </div>
   );
 }

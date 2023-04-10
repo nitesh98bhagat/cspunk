@@ -35,9 +35,9 @@ export default function Layout({ children }) {
       <div className="min-h-screen w-full sm:px-20 ">{children}</div>
 
       {showHeader && (
-        <div className="flex justify-end sticky bottom-10   z-50">
+        <div className="flex justify-end sticky bottom-10   z-50 active:bg-transparent">
           <Link href={"/create-post"} className="">
-            <button className="  bg-teal-700 text-white font-bold flex py-2 px-5 sm:px-20 sm:py-3 items-center justify-center space-x-2 rounded-full mr-5 sm:mr-52">
+            <button className="active:bg-transparent  bg-teal-700 text-white font-bold flex py-2 px-5 sm:px-20 sm:py-3 items-center justify-center space-x-2 rounded-full mr-5 sm:mr-52">
               <FiFeather />
               <span>Post Now</span>
             </button>

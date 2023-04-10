@@ -8,7 +8,10 @@ import { supabase } from "../utils/supabaseConfig";
 function CreatePost() {
   const user = useUser();
   const router = useRouter();
-  const [postContent, setPostContent] = useState(null);
+  const [postContent, setPostContent] = useState("");
+
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const addPostToDatabase = async () => {
     const postObject = {
@@ -16,16 +19,24 @@ function CreatePost() {
       user_id: user.id,
     };
 
-    const { data, error } = await supabase.from("posts").insert([postObject]);
+    if (postContent.length > 0 && !loading) {
+      // const { data, error } = await supabase.from("posts").insert([postObject]);
 
-    if (data) {
-      console.log(data);
+      // if (data) {
+      //   console.log(data);
+      // }
+
+      // // console.log(data);
+      // if (error) throw error;
+
+      setLoading(true);
+      setPostContent("");
+      console.log(postObject);
+
+      // router.back();
+    } else {
+      setError(`Can't post an empty status`);
     }
-
-    // console.log(data);
-    if (error) throw error;
-
-    router.back();
   };
 
   return (
@@ -47,7 +58,9 @@ function CreatePost() {
             <MdClear size={25} />
           </button>
         </div>
+        {error && <div className="flex bg-red-600 text-white p-1">{error}</div>}
         <textarea
+          value={postContent}
           onChange={(e) => setPostContent(e.target.value)}
           placeholder="Write a post..."
           className="w-full bg-transparent py-5 focus:ring-0 outline-none text-xl p-3"
