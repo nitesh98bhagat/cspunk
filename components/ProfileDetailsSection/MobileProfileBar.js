@@ -41,10 +41,12 @@ const MobileProfileBar = ({ profile, followerCount }) => {
           )}
 
           {/* Follow/Unfollow button*/}
-          <button className="  bg-teal-700 text-white font-bold flex p-1  items-center justify-center space-x-2 rounded-full w-full my-auto ">
-            <RiUserFollowLine />
-            <span>Follow </span>
-          </button>
+          {profile.id !== user?.id && (
+            <button className="  bg-teal-700 text-white font-bold flex p-1  items-center justify-center space-x-2 rounded-full w-full my-auto ">
+              <RiUserFollowLine />
+              <span>Follow </span>
+            </button>
+          )}
         </div>
       </div>
 

@@ -11,7 +11,7 @@ import EducationTab from "../components/ProfilePageTabs/EducationTab";
 import dateFormat from "dateformat";
 import { supabase } from "../utils/supabaseConfig";
 import Head from "next/head";
-import DesktopProfileSideBar from "../components/ProfileDetailsSection/MobileProfileBar";
+import DesktopProfileSideBar from "../components/ProfileDetailsSection/DesktopProfileSideBar";
 
 import MobileProfileBar from "../components/ProfileDetailsSection/MobileProfileBar";
 
@@ -72,10 +72,8 @@ export default function ProfilePage({ profile, count }) {
       <div className="flex flex-col sm:flex-row  justify-start items-start ">
         {/*Desktop Profile Sidebar */}
         <DesktopProfileSideBar profile={profile} followerCount={count} />
-
         {/* Mobile profile Bar */}
         <MobileProfileBar profile={profile} followerCount={count} />
-
         {/* Main Area */}
         <div className="flex flex-col flex-1 relative border-l dark:border-slate-800 ">
           {/* Tab Bar  */}
