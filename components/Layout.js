@@ -23,8 +23,6 @@ export default function Layout({ children }) {
     <div className="flex flex-col   ">
       {showHeader && <Header />}
 
-      {showHeader && <MobileNavBar />}
-
       {/* <button className="bg-teal-400  top-1/2 sticky ">Post</button> */}
 
       <div className="min-h-screen w-full sm:px-20 ">{children}</div>

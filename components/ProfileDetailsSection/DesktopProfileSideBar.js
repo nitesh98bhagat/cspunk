@@ -31,7 +31,7 @@ function DesktopProfileSideBar({ profile, followerCount }) {
           <BiUser size={20} />
           <h1 className="text-sm">{profile?.username ?? "default"}</h1>
 
-          <MdVerified className="text-teal-400" />
+          {profile?.isVerified && <MdVerified className="text-teal-400" />}
         </div>
         {/* Followers */}
         <p className="font-bold p-1">{followerCount} Followers </p>
@@ -40,7 +40,7 @@ function DesktopProfileSideBar({ profile, followerCount }) {
         <div className="hidden sm:block">
           {profile?.id !== user?.id && (
             <UserFollowButton
-              currentUser={user.user_metadata.id}
+              currentUser={user?.user_metadata.id}
               otherUser={profile?.id}
             />
           )}

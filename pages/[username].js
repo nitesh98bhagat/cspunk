@@ -47,9 +47,9 @@ export default function ProfilePage({ profile, count }) {
 
   useEffect(() => {
     setTabList([
-      { title: "Overview", icon: <GoHome size={20} /> },
-      { title: "Projects", icon: <FaProjectDiagram size={20} /> },
-      { title: "Education", icon: <GiWhiteBook size={20} /> },
+      { title: "Home", icon: <GoHome size={20} /> },
+      { title: "Testimony", icon: <FaProjectDiagram size={20} /> },
+      { title: "About", icon: <GiWhiteBook size={20} /> },
     ]);
 
     setTabBarView([

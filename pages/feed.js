@@ -5,6 +5,7 @@ import Head from "next/head";
 import TrendingSection from "../components/TrendingSection";
 import PostCard from "../components/PostCard";
 import { supabase } from "../utils/supabaseConfig";
+import { MobileNavBar } from "../components/Header";
 
 function FeedPage() {
   const [postArray, setPostArray] = useState([]);
@@ -45,6 +46,7 @@ function FeedPage() {
       <Head>
         <title>Feed</title>
       </Head>
+      <MobileNavBar />
       <div className="min-h-screen flex flex-row items-start">
         {/* Main Content */}
         <div className="flex-col flex w-full  border-x  border-slate-200 dark:border-neutral-800">
