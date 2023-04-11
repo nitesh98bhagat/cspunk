@@ -5,6 +5,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { BiLink, BiUser } from "react-icons/bi";
 import dateFormat from "dateformat";
 import { MdLocationOn, MdVerified } from "react-icons/md";
+import UserFollowButton from "../UserFollowButton";
 
 function DesktopProfileSideBar({ profile, followerCount }) {
   const user = useUser();
@@ -35,6 +36,16 @@ function DesktopProfileSideBar({ profile, followerCount }) {
         {/* Followers */}
         <p className="font-bold p-1">{followerCount} Followers </p>
 
+        {/* Follow/Unfollow */}
+        <div className="hidden sm:block">
+          {profile?.id !== user?.id && (
+            <UserFollowButton
+              currentUser={user.user_metadata.id}
+              otherUser={profile?.id}
+            />
+          )}
+        </div>
+
         {/* bio */}
         <h1 className="text-sm  text-slate-800 dark:text-slate-300   py-2">
           {profile?.bio ?? "default"}
@@ -44,13 +55,13 @@ function DesktopProfileSideBar({ profile, followerCount }) {
         {user && user.id === profile?.id && (
           <Link
             href={"/settings"}
-            className="bg-teal-400  rounded-md py-1 font-medium my-2 text-center"
+            className="bg-teal-700  rounded-full py-1 font-medium my-2 text-center"
           >
             Edit profile
           </Link>
         )}
         {/* location */}
-        {profile.location !== null && (
+        {profile?.location !== null && (
           <div className="flex flex-row items-center  space-x-1">
             <MdLocationOn size={20} />
             <h1 className="text-base">{profile?.location}</h1>

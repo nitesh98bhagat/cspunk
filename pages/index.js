@@ -4,18 +4,29 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import { AiFillGithub } from "react-icons/ai";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+
+export async function getServerSideProps(context) {
+  // Create authenticated Supabase Client
+  const supabase = createServerSupabaseClient(context);
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session)
+    return {
+      redirect: {
+        destination: "/feed",
+        permanent: false,
+      },
+    };
+
+  return { props: {} };
+}
 
 export default function Home() {
   const user = useUser();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (user) {
-      router.push("/feed");
-    }
-  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -40,8 +51,9 @@ export default function Home() {
             around the world
           </h1>
           <p className="text-slate-400 my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
-            mollitia quam quis molestiae molestias ex at dignissimos corporis!
+            Cspunk is a platform that allows developers to connect with other
+            developers, share ideas, collaborate on projects, and build their
+            professional network.
           </p>
           {user && (
             <Link
@@ -82,25 +94,23 @@ export default function Home() {
             <span className="text-emerald-500 font-black">{"  //: DEVs"}</span>
           </h1>
           <h1 className="text-base font-semibold text-lime-500  tracking-widep px-2">
-            {
-              "$>> Get Started with creating your own profile || By searching an existing Developer"
-            }
+            {"$>> Get Started by Signing up with GitHub"}
           </h1>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 justify-center items-center py-10 w-full">
         <div className="flex-col flex  items-center p-5">
-          <h1 className="text-6xl font-bold">100,000+</h1>
+          <h1 className="text-6xl font-bold">1k+</h1>
           <h1 className="text-2xl">Developers on the Site</h1>
         </div>
         <div className="flex-col flex  items-center p-5">
-          <h1 className="text-6xl font-bold">13,000+</h1>
-          <h1 className="text-2xl">Post by developers</h1>
+          <h1 className="text-6xl font-bold">3k+</h1>
+          <h1 className="text-2xl">Contents by developers</h1>
         </div>{" "}
         <div className="flex-col flex  items-center p-5">
-          <h1 className="text-6xl font-bold">58,000+</h1>
-          <h1 className="text-2xl">Open source</h1>
+          <h1 className="text-6xl font-bold">580+</h1>
+          <h1 className="text-2xl">Q&A answered</h1>
         </div>
       </div>
     </div>

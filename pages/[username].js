@@ -16,13 +16,15 @@ import DesktopProfileSideBar from "../components/ProfileDetailsSection/DesktopPr
 import MobileProfileBar from "../components/ProfileDetailsSection/MobileProfileBar";
 
 export async function getServerSideProps(context) {
+  // Fetching all profile information of user from context.query
   const { data: profile } = await supabase
     .from("profiles")
     .select("*")
     .eq("username", context.query.username)
     .single();
 
-  const { data, count } = await supabase
+  // Fetching number of followers from DB
+  const { count } = await supabase
     .from("followers")
     .select("follower_id", { count: "exact", head: true })
     .eq("following_id", profile?.id);
@@ -75,18 +77,18 @@ export default function ProfilePage({ profile, count }) {
         {/* Mobile profile Bar */}
         <MobileProfileBar profile={profile} followerCount={count} />
         {/* Main Area */}
-        <div className="flex flex-col flex-1 relative border-l dark:border-slate-800 ">
+        <div className="flex flex-col relative w-full border-l dark:border-slate-800 ">
           {/* Tab Bar  */}
-          <div className="flex flex-row justify-start z-20 sticky top-12 sm:top-14 bg-white dark:bg-slate-900 items-end w-full   ">
+          <div className="flex flex-row justify-start z-20 sticky top-12 sm:top-14 bg-white dark:bg-neutral-900  ">
             {tabList.map((e, i) => (
               <div
                 key={i}
                 onClick={() => setCurrentIndex(i)}
                 className={`
-                text-base font-medium  flex items-center  border-b-2  py-3 px-4 space-x-1  cursor-pointer
+                text-base font-medium  flex p-3 items-center  border-b-2   space-x-1  cursor-pointer
                 ${
                   currentIndex === i
-                    ? "text-teal-400  border-teal-400 font-medium"
+                    ? "text-teal-700 dark:text-teal-400 border-teal-700 dark:border-teal-400 font-medium"
                     : " border-slate-50 dark:border-slate-800 text-slate-500"
                 }
                `}
@@ -98,9 +100,9 @@ export default function ProfilePage({ profile, count }) {
             <div className="flex-1 border-b-2 border-slate-50 dark:border-slate-800"></div>
           </div>
           {/* tabar view */}
-          <div className="flex flex-col w-full ">
+          {/* <div className="flex flex-col w-full ">
             {tabBarView[currentIndex]}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

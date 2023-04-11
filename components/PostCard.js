@@ -9,6 +9,7 @@ import TimeAgo from "javascript-time-ago";
 // English.
 import en from "javascript-time-ago/locale/en";
 import Link from "next/link";
+import Image from "next/image";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -22,14 +23,14 @@ export default function PostCard({ content, created_at, profiles }) {
   const date = new Date(created_at);
 
   return (
-    <div className="flex flex-row pb-3  border-b dark:border-slate-800 border-slate-200  space-x-2 p-3">
+    <div className="flex flex-row pb-3  border-b dark:border-neutral-800 border-neutral-200  space-x-2 p-3">
       {/* content area */}
       <div className="flex flex-col  flex-1 justify-start items-start space-y-1">
         {/* profile header */}
 
         <div className=" flex flex-row   items-center w-full space-x-2">
           <div className=" w-8 h-8 relative z-10 rounded-full">
-            <img
+            <Image
               src={
                 profiles.avatar_url ??
                 "https://firebasestorage.googleapis.com/v0/b/fleeke-ebe0e.appspot.com/o/webAssets%2FWhatsApp%20Image%202020-02-17%20at%2011.44.18%20AM.jpeg?alt=media&token=ed3e9338-bbdd-4b6e-94db-8822931e6b83"

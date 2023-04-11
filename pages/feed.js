@@ -47,7 +47,7 @@ function FeedPage() {
       </Head>
       <div className="min-h-screen flex flex-row items-start">
         {/* Main Content */}
-        <div className="flex-col flex w-full  border-x  border-slate-200 dark:border-slate-800">
+        <div className="flex-col flex w-full  border-x  border-slate-200 dark:border-neutral-800">
           {postArray.map((e) => (
             <PostCard key={e.post_id} {...e} />
           ))}
