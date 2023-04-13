@@ -218,17 +218,15 @@ export default function Settings() {
             onChange={(e) => setBio(e.target.value)}
           />
 
-          <div className="flex-row flex space-x-5 py-2 font-semibold">
-            <button
-              className="bg-teal-400 text-slate-800 px-3 py-0.5 rounded-md w-1/4 "
-              onClick={() =>
-                updateProfile({ full_name, bio, avatar_url, location, id })
-              }
-              disabled={loading}
-            >
-              {loading ? "Saving ..." : "Save"}
-            </button>
-          </div>
+          <button
+            className="bg-teal-400 text-slate-800 px-3 py-0.5 rounded-md w-1/4 "
+            onClick={() =>
+              updateProfile({ full_name, bio, avatar_url, location, id })
+            }
+            disabled={loading}
+          >
+            {loading ? "Saving ..." : "Save"}
+          </button>
         </div>
       </div>
     </div>

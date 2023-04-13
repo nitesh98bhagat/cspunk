@@ -32,7 +32,7 @@ const MobileProfileBar = ({ profile, followerCount }) => {
             </div>
           </Link>
 
-          <Link href={`/${user?.user_metadata.user_name}`}>
+          <Link href={`/settings`}>
             <FiSettings size={25} />
           </Link>
         </div>
