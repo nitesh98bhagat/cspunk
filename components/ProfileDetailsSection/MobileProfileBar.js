@@ -17,71 +17,44 @@ const MobileProfileBar = ({ profile, followerCount }) => {
   const router = useRouter();
 
   return (
-    <div className="flex sm:hidden flex-col  space-y-2 ">
-      {/* App Header */}
-      <div className="flex-col sm:hidden  flex sticky top-0 z-50 bg-white dark:bg-neutral-900">
-        <div className="flex flex-row py-3 px-1 items-center justify-center   ">
-          <IoIosArrowBack size={30} onClick={() => router.back()} />
-
-          <Link href={"/"} className="mx-auto hover:bg-transparent">
-            <div className="flex flex-row items-center  space-x-0.5">
-              <h1 className="text-base  text-center font-black  ">
-                {`@${profile?.username}`}
-              </h1>
-              {profile?.isVerified && <MdVerified className="text-teal-500" />}
-            </div>
-          </Link>
-
-          <Link href={`/settings`}>
-            <FiSettings size={25} />
-          </Link>
-        </div>
-
-        <hr className="border-slate-100 dark:border-slate-800" />
+    <div className="flex sm:hidden flex-col  items-center">
+      {/* Image */}
+      <div className=" w-32 h-32 relative rounded-full my-2 border-2 ">
+        <Image
+          src={profile?.avatar_url}
+          alt="nitesh_bhagat" // required
+          fill="fill"
+          className="rounded-full object-cover "
+        />
       </div>
-      {/* Profile Details */}
-      <div className="flex-row flex items-center space-x-3 px-2">
-        {/* image */}
-        <div className=" w-24 h-24 relative rounded-full my-2 border-2 ">
-          <Image
-            src={profile?.avatar_url}
-            alt="nitesh_bhagat" // required
-            fill="fill"
-            className="rounded-full object-cover "
-          />
+
+      {/* Full name */}
+      <h1 className="text-lg font-semibold">{profile?.full_name}</h1>
+      {/* Follower, Location */}
+      <div className="flex space-x-1 items-center">
+        {/* FOLLOWER COUNT */}
+        <div className="flex flex-row items-center text-sm space-x-1">
+          {/* <BsPeopleFill size={18} /> */}
+          <p>
+            <span className="font-bold">{followerCount}</span> Followers
+          </p>
         </div>
-        {/* Image, Name, details */}
-        <div className="flex-col flex  flex-1 space-y-0.5 ">
-          {/* Full name */}
-          <h1 className="text-lg font-semibold">{profile?.full_name}</h1>
 
-          {/* Username */}
-          {/* <div className="flex flex-row items-center  space-x-1">
-            <BiUser size={20} />
-            <h1 className="text-sm">{profile?.username ?? "default"}</h1>
-            {profile?.isVerified && <MdVerified className="text-teal-400" />}
-          </div> */}
+        <span>・</span>
 
-          {/* location */}
-          {profile?.location !== null && (
-            <div className="flex flex-row items-center  space-x-1 ">
-              <MdLocationOn size={18} />
-              <h1 className="text-sm">{profile?.location}</h1>
-            </div>
-          )}
-
-          {/* FOLLOWER COUNT */}
-          <div className="flex flex-row items-center text-sm space-x-1">
-            <BsPeopleFill size={18} />
-            <p>
-              <span className="font-bold">{followerCount}</span> Followers
-            </p>
+        {/* location */}
+        {profile?.location !== null ? (
+          <div className="flex flex-row items-center  space-x-1 ">
+            {/* <MdLocationOn size={18} /> */}
+            <h1 className="text-sm">{profile?.location}</h1>
           </div>
-        </div>
+        ) : (
+          <h1 className="text-sm">nowhere</h1>
+        )}
       </div>
 
       {/* Bio */}
-      <p className="text-sm px-3">{profile?.bio}</p>
+      <p className="text-xs p-3 text-center">{profile?.bio}</p>
 
       {/* Edit button */}
       <div className="block sm:hidden w-full px-3">

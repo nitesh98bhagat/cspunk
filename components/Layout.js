@@ -25,7 +25,7 @@ export default function Layout({ children }) {
 
       {/* <button className="bg-teal-400  top-1/2 sticky ">Post</button> */}
 
-      <div className="min-h-screen w-full sm:px-20 ">{children}</div>
+      <div className="min-h-screen w-full sm:px-10 ">{children}</div>
 
       {showHeader && (
         <div className="flex justify-end sticky bottom-10   z-50 active:bg-transparent">

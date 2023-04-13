@@ -6,7 +6,7 @@ import { MdVerified } from "react-icons/md";
 function PeoplePill({ id, full_name, username, isVerified, avatar_url }) {
   return (
     <Link href={`/${username}`}>
-      <div className="flex items-center space-x-2 my-2 dark:hover:bg-neutral-800 hover:bg-neutral-100">
+      <div className="flex items-center space-x-2  dark:hover:bg-neutral-800 hover:bg-neutral-100 p-2 py-3">
         <Image
           src={avatar_url}
           alt={`${username}' picture`}

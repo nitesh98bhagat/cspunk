@@ -15,6 +15,13 @@ import MobileProfileBar from "../components/ProfileDetailsSection/MobileProfileB
 
 import PeopleToFollow from "../components/PeopleToFollow";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import MyPostsTab from "../components/ProfilePageTabs/MyPostsTab";
+import { IoIosArrowBack } from "react-icons/io";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { FiSettings } from "react-icons/fi";
+import { MdVerified } from "react-icons/md";
+import MobileNavBarForProfileHeader from "../components/ProfilePageTabs/MobileNavBarForProfileHeader";
 
 export async function getServerSideProps(context) {
   // Create authenticated Supabase Client
@@ -56,32 +63,29 @@ export async function getServerSideProps(context) {
 }
 
 export default function ProfilePage({ profile, count, peopleToFollow }) {
-  const user = useUser();
-
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [tabList, setTabList] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [tabBarView, setTabBarView] = useState([]);
 
   useEffect(() => {
     setTabList([
-      { title: "Home", icon: <GoHome size={20} /> },
-      { title: "Testimony", icon: <FaProjectDiagram size={20} /> },
-      { title: "About", icon: <GiWhiteBook size={20} /> },
+      { title: "My Posts" },
+      { title: "Testimony" },
+      { title: "About" },
     ]);
 
     setTabBarView([
-      <div key={"overview"} className="min-h-screen p-5">
-        <OverviewTab profile={profile} />
+      <div key={"Posts"} className="">
+        <MyPostsTab user_id={profile?.id} />
       </div>,
-      <div key={"project"} className="min-h-screen p-5">
-        <ProjectsTab username={profile?.username} />
+      <div key={"Testimonies"} className=" p-5">
+        <h1>Testimonies</h1>
       </div>,
-      <div key={"education"} className="min-h-screen p-5">
-        <EducationTab profile={profile} />
+      <div key={"About"} className=" p-5">
+        <h1>About</h1>
       </div>,
     ]);
-  }, [profile]);
-
+  }, [profile?.id]);
   return (
     <>
       <Head>
@@ -89,12 +93,17 @@ export default function ProfilePage({ profile, count, peopleToFollow }) {
       </Head>
 
       <div className="flex flex-col sm:flex-row  justify-start items-start ">
-        {/*Desktop Profile Sidebar */}
+        {/* This component is the appheader for profile page and it will be visible only to mobile screens  */}
+        <MobileNavBarForProfileHeader profile={profile} />
+
+        {/*Desktop Profile Sidebar- This will only be visible to desktop screens only*/}
         <DesktopProfileSideBar profile={profile} followerCount={count} />
-        {/* Mobile profile Bar */}
+
+        {/* Mobile profile Bar- This will only be vissible to Mobile Screens only*/}
         <MobileProfileBar profile={profile} followerCount={count} />
-        {/* Main Area */}
-        <div className="flex flex-col relative w-full border-x dark:border-neutral-900 min-h-screen">
+
+        {/* Main Area- Tabbar & TabbarView */}
+        <div className="flex flex-col relative w-full border-x sm:mx-3 dark:border-neutral-800 ">
           {/* Tab Bar  */}
           <div className="flex flex-row justify-start z-20 sticky top-12 sm:top-14 bg-white dark:bg-[#121212]  ">
             {tabList.map((e, i) => (
@@ -102,27 +111,26 @@ export default function ProfilePage({ profile, count, peopleToFollow }) {
                 key={i}
                 onClick={() => setCurrentIndex(i)}
                 className={`
-                text-base font-medium  flex p-3 items-center  border-b-2   space-x-1  cursor-pointer
-                ${
-                  currentIndex === i
-                    ? "text-teal-700 dark:text-teal-400 border-teal-700 dark:border-teal-400 font-medium"
-                    : " border-slate-50 dark:border-neutral-900 text-slate-500"
-                }
-               `}
+        text-base font-medium  flex p-3 items-center  border-b-2   space-x-1  cursor-pointer
+        ${
+          currentIndex === i
+            ? "text-teal-700 dark:text-teal-400 border-teal-700 dark:border-teal-400 font-medium"
+            : " border-slate-50 dark:border-neutral-800 text-slate-500"
+        }
+       `}
               >
-                <span>{e.icon}</span>
                 <span>{e.title}</span>
               </div>
             ))}
-            <div className="flex-1 border-b-2 border-slate-50 dark:border-neutral-900"></div>
+            <div className="flex-1 border-b-2 border-slate-50 dark:border-neutral-800"></div>
           </div>
           {/* tabar view */}
-          {/* <div className="flex flex-col w-full ">
+          <div className="flex flex-col w-full ">
             {tabBarView[currentIndex]}
-          </div> */}
+          </div>
         </div>
 
-        {/* People to follow */}
+        {/* People to follow-  This will only be visible to desktop screens only*/}
         <PeopleToFollow userList={peopleToFollow} />
       </div>
     </>

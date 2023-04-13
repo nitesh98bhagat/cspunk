@@ -4,9 +4,9 @@ import { FiExternalLink } from "react-icons/fi";
 
 function PeopleToFollow({ userList }) {
   return (
-    <div className="flex-col hidden sm:flex sticky top-16  w-1/2 items-center">
-      <div className="flex-col flex  bg-neutral-100  dark:bg-neutral-800/70  m-2 p-4 rounded-3xl">
-        <h1 className="text-lg font-semibold ">People to follow</h1>
+    <div className="flex-col hidden sm:flex sticky top-16  w-1/2 items-center my-5 ml-3">
+      <div className="flex-col flex  bg-neutral-100  dark:bg-neutral-800/70 w-full   rounded-3xl overflow-hidden">
+        <h1 className="text-lg font-semibold px-4 py-2.5">People to follow</h1>
         {/* People Pill */}
         {userList?.map((user) => (
           <PeoplePill key={user?.id} {...user} />
@@ -17,7 +17,7 @@ function PeopleToFollow({ userList }) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className="flex items-center space-x-1 flex-row">
+        <div className="flex items-center space-x-1 flex-row m-2">
           <span>Developer Credit</span>
 
           <FiExternalLink />

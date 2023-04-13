@@ -1,0 +1,34 @@
+   {/* Profile Details */}
+   <div className="flex-row flex items-center space-x-3 px-2">
+   {/* image */}
+   <div className=" w-24 h-24 relative rounded-full my-2 border-2 ">
+     <Image
+       src={profile?.avatar_url}
+       alt="nitesh_bhagat" // required
+       fill="fill"
+       className="rounded-full object-cover "
+     />
+   </div>
+   {/* Image, Name, details */}
+   <div className="flex-col flex  flex-1 space-y-0.5 ">
+     {/* Full name */}
+     <h1 className="text-lg font-semibold">{profile?.full_name}</h1>
+
+
+     {/* location */}
+     {profile?.location !== null && (
+       <div className="flex flex-row items-center  space-x-1 ">
+         <MdLocationOn size={18} />
+         <h1 className="text-sm">{profile?.location}</h1>
+       </div>
+     )}
+
+     {/* FOLLOWER COUNT */}
+     <div className="flex flex-row items-center text-sm space-x-1">
+       <BsPeopleFill size={18} />
+       <p>
+         <span className="font-bold">{followerCount}</span> Followers
+       </p>
+     </div>
+   </div>
+ </div>
