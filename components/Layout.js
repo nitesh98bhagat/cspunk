@@ -21,7 +21,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="flex flex-col   ">
-      {showHeader && <Header />}
+      {/* {showHeader && <Header />} */}
 
       {/* <button className="bg-teal-400  top-1/2 sticky ">Post</button> */}
 

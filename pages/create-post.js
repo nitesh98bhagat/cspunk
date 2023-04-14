@@ -48,7 +48,7 @@ function CreatePost() {
           </button>
           <button
             disabled={postContent.trim().length <= 0}
-            className="bg-teal-700 text-sm px-6 py-1.5 text-white rounded-full disabled:bg-gray-100  active:bg-teal-500 "
+            className="bg-teal-700 text-sm px-6 py-1.5 text-white rounded-full disabled:bg-gray-100 dark:disabled:bg-neutral-800  active:bg-teal-500 "
             onClick={addPostToDatabase}
           >
             Post now{" "}

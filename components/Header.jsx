@@ -28,6 +28,7 @@ import { FiFeather, FiSettings } from "react-icons/fi";
 import { useTheme } from "next-themes";
 
 import { IoMdClose } from "react-icons/io";
+import Logo from "./Logo";
 
 function Header() {
   const user = useUser();
@@ -122,14 +123,7 @@ function Header() {
   return (
     <nav className=" sm:flex sticky top-0 hidden  z-50 flex-row items-center justify-start w-full sm:px-16 bg-white dark:bg-neutral-900 text-slate-700 dark:text-slate-100 p-2 border-b dark:border-neutral-800  border-slate-100">
       {/* Logo */}
-      <Link href={"/"} className="cursor-pointer flex-1 sm:flex-none">
-        <h1 className="text-2xl font-black   cursor-pointer">
-          <span className="bg-teal-600 text-white px-1 mr-1  rounded-sm ">
-            Cs
-          </span>
-          Punk
-        </h1>
-      </Link>
+      <Logo />
 
       {/* search bar */}
       {router.pathname !== "/" && (

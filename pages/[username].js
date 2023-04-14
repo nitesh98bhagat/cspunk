@@ -44,25 +44,16 @@ export async function getServerSideProps(context) {
     .select("follower_id", { count: "exact", head: true })
     .eq("following_id", profile?.id);
 
-  // Fetching People to follow
-  const { data: peopleToFollow } = await supabase
-    .from("profiles")
-    .select("id, full_name, username, isVerified, avatar_url")
-    .neq("username", context.query.username)
-    .neq("username", session?.user.user_metadata.user_name)
-    .limit(6);
-
   return {
     props: {
       profile,
       count,
-      peopleToFollow,
     },
   };
   // return
 }
 
-export default function ProfilePage({ profile, count, peopleToFollow }) {
+export default function ProfilePage({ profile, count }) {
   const [tabList, setTabList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [tabBarView, setTabBarView] = useState([]);
@@ -103,7 +94,7 @@ export default function ProfilePage({ profile, count, peopleToFollow }) {
         <MobileProfileBar profile={profile} followerCount={count} />
 
         {/* Main Area- Tabbar & TabbarView */}
-        <div className="flex flex-col relative w-full border-x sm:mx-3 dark:border-neutral-800 ">
+        <div className="flex flex-col w-full sm:w-1/2 border-x sm:mx-3 dark:border-neutral-800 ">
           {/* Tab Bar  */}
           <div className="flex flex-row justify-start z-20 sticky top-12 sm:top-14 bg-white dark:bg-[#121212]  ">
             {tabList.map((e, i) => (
@@ -125,13 +116,11 @@ export default function ProfilePage({ profile, count, peopleToFollow }) {
             <div className="flex-1 border-b-2 border-slate-50 dark:border-neutral-800"></div>
           </div>
           {/* tabar view */}
-          <div className="flex flex-col w-full ">
-            {tabBarView[currentIndex]}
-          </div>
+          <div className="flex flex-col  ">{tabBarView[currentIndex]}</div>
         </div>
 
         {/* People to follow-  This will only be visible to desktop screens only*/}
-        <PeopleToFollow userList={peopleToFollow} />
+        <PeopleToFollow username={profile?.username} />
       </div>
     </>
   );
