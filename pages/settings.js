@@ -180,7 +180,8 @@ export default function Settings() {
             <Image
               src={avatar_url ?? "/defaultUser.png"}
               alt="default"
-              fill="fill"
+              width={100}
+              height={100}
               className="rounded-full"
             />
           </div>

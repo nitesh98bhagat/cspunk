@@ -12,7 +12,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/router";
 
-const MobileProfileBar = ({ profile, followerCount }) => {
+const MobileProfileBar = ({ profile, followerCount, session }) => {
   const user = useUser();
   const router = useRouter();
 
@@ -23,7 +23,7 @@ const MobileProfileBar = ({ profile, followerCount }) => {
         <Image
           src={profile?.avatar_url}
           alt="nitesh_bhagat" // required
-          fill="fill"
+          fill
           className="rounded-full object-cover "
         />
       </div>
@@ -70,7 +70,7 @@ const MobileProfileBar = ({ profile, followerCount }) => {
       <div className="block sm:hidden w-full px-3">
         {profile?.id !== user?.id && (
           <UserFollowButton
-            currentUser={user?.user_metadata?.id}
+            currentUser={session?.user.id}
             otherUser={profile?.id}
           />
         )}

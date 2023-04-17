@@ -48,12 +48,13 @@ export async function getServerSideProps(context) {
     props: {
       profile,
       count,
+      session,
     },
   };
   // return
 }
 
-export default function ProfilePage({ profile, count }) {
+export default function ProfilePage({ profile, count, session }) {
   const [tabList, setTabList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [tabBarView, setTabBarView] = useState([]);
@@ -83,20 +84,28 @@ export default function ProfilePage({ profile, count }) {
         <title>{profile?.full_name}</title>
       </Head>
 
-      <div className="flex flex-col sm:flex-row  justify-start items-start ">
+      <div className="flex flex-col sm:flex-row  justify-start items-start border-x  dark:border-neutral-800">
         {/* This component is the appheader for profile page and it will be visible only to mobile screens  */}
         <MobileNavBarForProfileHeader profile={profile} />
 
         {/*Desktop Profile Sidebar- This will only be visible to desktop screens only*/}
-        <DesktopProfileSideBar profile={profile} followerCount={count} />
+        <DesktopProfileSideBar
+          profile={profile}
+          followerCount={count}
+          session={session}
+        />
 
         {/* Mobile profile Bar- This will only be vissible to Mobile Screens only*/}
-        <MobileProfileBar profile={profile} followerCount={count} />
+        <MobileProfileBar
+          profile={profile}
+          followerCount={count}
+          session={session}
+        />
 
         {/* Main Area- Tabbar & TabbarView */}
-        <div className="flex flex-col w-full sm:w-1/2 border-x sm:mx-3 dark:border-neutral-800 ">
+        <div className="flex flex-col w-full  border-x  dark:border-neutral-800 ">
           {/* Tab Bar  */}
-          <div className="flex flex-row justify-start z-20 sticky top-12 sm:top-14 bg-white dark:bg-[#121212]  ">
+          <div className="flex flex-row justify-start z-20 sticky top-12 sm:top-0 bg-white dark:bg-[#121212]  ">
             {tabList.map((e, i) => (
               <div
                 key={i}
@@ -120,7 +129,7 @@ export default function ProfilePage({ profile, count }) {
         </div>
 
         {/* People to follow-  This will only be visible to desktop screens only*/}
-        <PeopleToFollow username={profile?.username} />
+        {/* <PeopleToFollow username={profile?.username} /> */}
       </div>
     </>
   );

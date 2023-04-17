@@ -61,8 +61,8 @@ function CreatePost() {
             <Image
               src={user?.user_metadata.avatar_url}
               alt="nitesh bhagat"
-              layout="fill" // required
-              objectFit="cover"
+              width={100}
+              height={100}
               className="rounded-full "
             />
           </div>

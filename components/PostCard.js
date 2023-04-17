@@ -11,7 +11,7 @@ import en from "javascript-time-ago/locale/en";
 import Link from "next/link";
 import Image from "next/image";
 
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(en);
 
 // Create formatter (English).
 const timeAgo = new TimeAgo("en-US");
@@ -36,8 +36,8 @@ export default function PostCard({ content, created_at, profiles }) {
                 "https://firebasestorage.googleapis.com/v0/b/fleeke-ebe0e.appspot.com/o/webAssets%2FWhatsApp%20Image%202020-02-17%20at%2011.44.18%20AM.jpeg?alt=media&token=ed3e9338-bbdd-4b6e-94db-8822931e6b83"
               }
               alt="nitesh bhagat"
-              layout="fill" // required
-              objectFit="cover"
+              width={100}
+              height={100}
               className="rounded-full "
             />
           </div>
@@ -50,9 +50,9 @@ export default function PostCard({ content, created_at, profiles }) {
             <div className="flex items-center ">
               <Link
                 href={`/${profiles.username}`}
-                className=" hover:underline hover:text-slate-600"
+                className=" hover:underline hover:text-neutral-600"
               >
-                <span className="text-sm font-light text-slate-400">
+                <span className="text-sm font-light text-neutral-400">
                   {"@" + profiles.username ?? "Username"}
                 </span>
               </Link>
@@ -66,12 +66,12 @@ export default function PostCard({ content, created_at, profiles }) {
 
           {/* repost button */}
           <button>
-            <HiArrowPath size={25} className="text-slate-600 " />
+            <HiArrowPath size={25} className="text-neutral-600 " />
           </button>
           <div className="px-0.5" />
           {/* more options */}
           <button>
-            <FiMoreHorizontal size={25} className="text-slate-600" />
+            <FiMoreHorizontal size={25} className="text-neutral-600" />
           </button>
         </div>
 
@@ -93,18 +93,18 @@ export default function PostCard({ content, created_at, profiles }) {
         )} */}
 
         {/* Comment section */}
-        <div className=" text-slate-600 w-full py-1 flex flex-row items-center">
+        <div className=" text-neutral-600 w-full py-1 flex flex-row items-center">
           <BsFillChatFill />
           <span className="text-sm px-1">0</span>
           <input
             type="text"
-            className=" w-full py-1 px-3 mx-1 focus:ring-0 rounded-md text-sm text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800/5 hover:bg-slate-800/10 dark:focus:bg-slate-800/50 focus:bg-slate-800/10 outline-none flex-1 "
+            className=" w-full py-1 px-3 mx-1 focus:ring-0 rounded-md text-sm text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-800/5 hover:bg-neutral-800/10 dark:focus:bg-neutral-800/50 focus:bg-neutral-800/10 outline-none flex-1 "
             placeholder="// add comment"
           />
         </div>
       </div>
       {/* Upbit/downbit */}
-      <div className="flex-col justify-center border dark:border-slate-800 border-slate-200 rounded-lg items-center flex  overflow-hidden text-slate-500">
+      <div className="flex-col justify-center border dark:border-neutral-800 border-neutral-200 rounded-lg items-center flex  overflow-hidden text-neutral-500">
         {/* upbit */}
         <button
           className={`flex flex-col items-center cursor-pointer justify-center flex-1 p-1 ${
@@ -116,7 +116,7 @@ export default function PostCard({ content, created_at, profiles }) {
           <span className="text-xs ">0</span>
         </button>
         {/* divider */}
-        <div className=" border w-full dark:border-slate-800 border-slate-200" />
+        <div className=" border w-full dark:border-neutral-800 border-neutral-200" />
         {/* downbit */}
         <button
           className={`flex flex-col items-center justify-center flex-1 p-1 cursor-pointer ${

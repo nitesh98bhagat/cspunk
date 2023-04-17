@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RiUserFollowLine } from "react-icons/ri";
 import { supabase } from "../utils/supabaseConfig";
 import { useUser } from "@supabase/auth-helpers-react";
 
 function UserFollowButton({ currentUser, otherUser }) {
-  // const user = useUser();
+  const [follower, setFollower] = useState(null);
+  const user = useUser();
+
   useEffect(() => {
     console.log("follow btn rendered");
     getFollowingStatus();
@@ -12,13 +14,14 @@ function UserFollowButton({ currentUser, otherUser }) {
 
   // Getting the status whether the currentUser is following it or not
   const getFollowingStatus = async () => {
-    // const { data, count } = await supabase
-    //   .from("followers")
-    //   .select("following_id", { count: "exact", head: true })
-    //   .eq("follower_id", currentUser)
-    //   .eq("following_id", otherUser);
+    const { data, count } = await supabase
+      .from("followers")
+      .select("id", { count: "exact", head: true })
+      .eq("follower_id", currentUser)
+      .eq("following_id", otherUser);
 
-    console.log(currentUser, otherUser);
+    setFollower(count);
+    console.log(count);
   };
 
   const handleClick = () => {
@@ -31,7 +34,7 @@ function UserFollowButton({ currentUser, otherUser }) {
       className="  bg-teal-700 text-white font-bold flex p-1.5  items-center justify-center space-x-2 rounded-full w-full  my-auto "
     >
       <RiUserFollowLine />
-      <span>Follow</span>
+      <span>{follower !== null && follower === 1 ? "Unfollow" : "Follow"}</span>
     </button>
   );
 }

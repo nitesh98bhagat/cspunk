@@ -31,7 +31,7 @@ function PeopleToFollow({ username }) {
   }, []);
 
   return (
-    <div className="flex-col hidden sm:flex sticky top-16  items-center  ">
+    <div className="flex-col hidden sm:flex   items-center  ">
       <div className="flex-col flex  bg-neutral-100  dark:bg-neutral-800/40 max-w-md min-w-full   rounded-3xl overflow-hidden">
         <h1 className="text-lg font-semibold px-4 py-2.5">People to follow</h1>
         {/* People Pill */}
