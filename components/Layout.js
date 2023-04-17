@@ -24,7 +24,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="flex flex-row  px-5 ">
-      <div className="w-1/4 p-2 sticky top-0 pr-5">
+      <div className="w-1/4 p-2 sticky pr-5">
         {showHeader && <LeftSection />}
       </div>
       <div className="min-h-screen w-full  ">{children}</div>

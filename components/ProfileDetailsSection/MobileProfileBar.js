@@ -32,14 +32,6 @@ const MobileProfileBar = ({ profile, followerCount, session }) => {
       <h1 className="text-lg font-semibold">{profile?.full_name}</h1>
       {/* Follower, Location */}
       <div className="flex space-x-1 items-center">
-        {/* FOLLOWER COUNT */}
-        <div className="flex flex-row items-center text-sm space-x-1">
-          {/* <BsPeopleFill size={18} /> */}
-          <p>
-            <span className="font-bold">{followerCount}</span> Followers
-          </p>
-        </div>
-
         <span>・</span>
 
         {/* location */}

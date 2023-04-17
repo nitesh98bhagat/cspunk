@@ -5,7 +5,7 @@ import WhatsTrending from "../WhatsTrending";
 import { AiFillBell, AiFillHome, AiOutlineUser } from "react-icons/ai";
 import { HiHashtag } from "react-icons/hi2";
 import Link from "next/link";
-import { FiFeather, FiSettings } from "react-icons/fi";
+import { FiFeather, FiHelpCircle, FiSettings } from "react-icons/fi";
 import { useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
 
@@ -67,6 +67,7 @@ export const MenuBar = () => {
         { title: "Trending", icon: <HiHashtag size={20} />, link: "/" },
 
         { title: "Settings", icon: <FiSettings size={20} />, link: "/" },
+        { title: "Help", icon: <FiHelpCircle size={20} />, link: "/" },
       ].map((e) => (
         <Link
           href={e.link}

@@ -1,41 +1,78 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { RiUserFollowLine } from "react-icons/ri";
 import { supabase } from "../utils/supabaseConfig";
 import { useUser } from "@supabase/auth-helpers-react";
 
 function UserFollowButton({ currentUser, otherUser }) {
-  const [follower, setFollower] = useState(null);
-  const user = useUser();
+  const [isFollowing, setIsFollowing] = useState(null);
+  const [numberOfFollowers, setNumberOfFollowers] = useState(null);
+  const [refreshUI, setRefreshUI] = useState(null);
 
   useEffect(() => {
-    console.log("follow btn rendered");
     getFollowingStatus();
-  }, []);
+  }, [refreshUI]);
 
   // Getting the status whether the currentUser is following it or not
   const getFollowingStatus = async () => {
-    const { data, count } = await supabase
+    const { count } = await supabase
       .from("followers")
       .select("id", { count: "exact", head: true })
       .eq("follower_id", currentUser)
       .eq("following_id", otherUser);
 
-    setFollower(count);
-    console.log(count);
+    setIsFollowing(count);
+    getNumberOfFollowers();
   };
 
-  const handleClick = () => {
-    console.log(currentUser, otherUser);
+  const getNumberOfFollowers = async () => {
+    const { count } = await supabase
+      .from("followers")
+      .select("follower_id", { count: "exact", head: true })
+      .eq("following_id", otherUser);
+
+    setNumberOfFollowers(count);
+  };
+
+  const addFollow = async () => {
+    const { data, error } = await supabase
+      .from("followers")
+      .insert([{ follower_id: currentUser, following_id: otherUser }]);
+
+    setRefreshUI(true);
+  };
+
+  const removeFollow = async () => {
+    const { data, error } = await supabase
+      .from("followers")
+      .delete()
+      .eq("follower_id", currentUser)
+      .eq("following_id", otherUser);
+
+    setRefreshUI(false);
   };
 
   return (
-    <button
-      onClick={handleClick}
-      className="  bg-teal-700 text-white font-bold flex p-1.5  items-center justify-center space-x-2 rounded-full w-full  my-auto "
-    >
-      <RiUserFollowLine />
-      <span>{follower !== null && follower === 1 ? "Unfollow" : "Follow"}</span>
-    </button>
+    <Fragment>
+      <h1 className="font-semibold my-2">{numberOfFollowers} Followers</h1>
+
+      <button
+        onClick={
+          isFollowing !== null && isFollowing === 1 ? removeFollow : addFollow
+        }
+        className={`    font-bold flex p-1.5  items-center justify-center space-x-2 rounded-full w-full  my-auto 
+        ${
+          isFollowing !== null && isFollowing === 1
+            ? "bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:bg-neutral-200"
+            : "bg-teal-700 text-white"
+        }
+        `}
+      >
+        <RiUserFollowLine />
+        <span>
+          {isFollowing !== null && isFollowing === 1 ? "Unfollow" : "Follow"}
+        </span>
+      </button>
+    </Fragment>
   );
 }
 

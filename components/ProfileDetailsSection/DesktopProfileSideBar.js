@@ -14,16 +14,7 @@ function DesktopProfileSideBar({ profile, followerCount, session }) {
   const router = useRouter();
 
   return (
-    <div className="flex-col items-start hidden sm:flex  py-3 px-5  sticky -top-48 w-1/4 ">
-      {/* Back Button */}
-      {/* <div
-        onClick={() => router.back()}
-        className="flex items-center rounded-full space-x-1 bg-neutral-800/95 py-1 px-3 cursor-pointer"
-      >
-        <IoIosArrowBack />
-        <span>{` back`}</span>
-      </div> */}
-
+    <div className="flex-col items-start hidden sm:flex  py-3 px-5  sticky -top-48 w-1/3">
       {/* image */}
       <div className=" w-56 h-56 relative rounded-full my-2 border-4 border-teal-400">
         <Image
@@ -45,8 +36,6 @@ function DesktopProfileSideBar({ profile, followerCount, session }) {
 
           {profile?.isVerified && <MdVerified className="text-teal-400" />}
         </div>
-        {/* Followers */}
-        <p className="font-bold p-1">{followerCount} Followers </p>
 
         {/* Follow/Unfollow */}
         <div className="hidden sm:block">

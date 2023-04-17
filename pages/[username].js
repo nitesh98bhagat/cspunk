@@ -38,23 +38,16 @@ export async function getServerSideProps(context) {
     .eq("username", context.query.username)
     .single();
 
-  // Fetching number of followers from DB
-  const { count } = await supabase
-    .from("followers")
-    .select("follower_id", { count: "exact", head: true })
-    .eq("following_id", profile?.id);
-
   return {
     props: {
       profile,
-      count,
       session,
     },
   };
   // return
 }
 
-export default function ProfilePage({ profile, count, session }) {
+export default function ProfilePage({ profile, session }) {
   const [tabList, setTabList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [tabBarView, setTabBarView] = useState([]);
@@ -89,18 +82,10 @@ export default function ProfilePage({ profile, count, session }) {
         <MobileNavBarForProfileHeader profile={profile} />
 
         {/*Desktop Profile Sidebar- This will only be visible to desktop screens only*/}
-        <DesktopProfileSideBar
-          profile={profile}
-          followerCount={count}
-          session={session}
-        />
+        <DesktopProfileSideBar profile={profile} session={session} />
 
         {/* Mobile profile Bar- This will only be vissible to Mobile Screens only*/}
-        <MobileProfileBar
-          profile={profile}
-          followerCount={count}
-          session={session}
-        />
+        <MobileProfileBar profile={profile} session={session} />
 
         {/* Main Area- Tabbar & TabbarView */}
         <div className="flex flex-col w-full  border-x  dark:border-neutral-800 ">
